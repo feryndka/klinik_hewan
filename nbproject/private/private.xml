@@ -3,11 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/Tel-U-program/OOP/Klinik_Hewan/src/java/models/Model.java</file>
-            <file>file:/E:/Tel-U-program/OOP/Klinik_Hewan/web/index.jsp</file>
-            <file>file:/E:/Tel-U-program/OOP/Klinik_Hewan/src/java/controllers/KlinikController.java</file>
-            <file>file:/E:/Tel-U-program/OOP/Klinik_Hewan/web/klinik/view.jsp</file>
-            <file>file:/E:/Tel-U-program/OOP/Klinik_Hewan/src/java/models/Klinik.java</file>
+            <file>file:/C:/Users/Sekula/OneDrive%20-%20Telkom%20University/2425-1/Pemrograman%20Berorientasi%20Objek/klinik_hewan/src/java/models/Model.java</file>
+            <file>file:/C:/Users/Sekula/OneDrive%20-%20Telkom%20University/2425-1/Pemrograman%20Berorientasi%20Objek/klinik_hewan/web/dokter/view.jsp</file>
+            <file>file:/C:/Users/Sekula/OneDrive%20-%20Telkom%20University/2425-1/Pemrograman%20Berorientasi%20Objek/klinik_hewan/web/index.jsp</file>
+            <file>file:/C:/Users/Sekula/OneDrive%20-%20Telkom%20University/2425-1/Pemrograman%20Berorientasi%20Objek/klinik_hewan/src/java/controllers/AuthController.java</file>
+            <file>file:/C:/Users/Sekula/OneDrive%20-%20Telkom%20University/2425-1/Pemrograman%20Berorientasi%20Objek/klinik_hewan/src/java/controllers/KlinikController.java</file>
         </group>
     </open-files>
 </project-private>
