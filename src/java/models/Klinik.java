@@ -4,22 +4,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Klinik extends Model<Klinik> {
-    private int id;
+    private int idKlinik;          // Change from 'id' to 'idKlinik' for clarity
     private String nama;
     private String alamat;
-    private String jamOperasional;
+    private String jamOperasional;  // Added field for operational hours
 
     public Klinik() {
-        // (isi konstruktor default klinik dengan ketentuan
-        // table di isi dengan name table, primary key diisi dengan kolom id)
-        this.table = "klinik";
-        this.primaryKey = "id";
+        this.table = "klinik";      // Table name
+        this.primaryKey = "idKlinik"; // Primary key column name
     }
-    
-    public Klinik(int id, String nama, String alamat, String jamOperasional) {
-        // (isi konstruktor klinik dengan menyesuaikan value yang ada pada parameter)
-        this();
-        this.id = id;
+
+    public Klinik(int idKlinik, String nama, String alamat, String jamOperasional) {
+        this();  // Call default constructor to set table and primary key
+        this.idKlinik = idKlinik;  // Set fields based on parameters
         this.nama = nama;
         this.alamat = alamat;
         this.jamOperasional = jamOperasional;
@@ -28,13 +25,11 @@ public class Klinik extends Model<Klinik> {
     @Override
     public Klinik toModel(ResultSet rs) {
         try {
-            // (dapatkan nilai setiap kolom pada db menggunakan rs, perhatikan juga tipe datanya
-            // data yang diambil menggunakan rs harus dimasukkan ke dalam model Klinik agar sesuai dengan konsep arsitektur MVC (Model-View-Controller)
             return new Klinik(
-                rs.getInt("id"),
+                rs.getInt("idKlinik"),      // Match with SQL column name
                 rs.getString("nama"),
                 rs.getString("alamat"),
-                rs.getString("jamOperasional")
+                rs.getString("jamOperasional")  // Ensure correct column name is used
             );
         } catch (SQLException e) {
             System.out.println("Error: " + e.getMessage());
@@ -42,35 +37,35 @@ public class Klinik extends Model<Klinik> {
         }
     }
 
-    public int getId() {
-        return id;
+    public int getIdKlinik() {       // Updated getter method name for clarity
+        return idKlinik;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdKlinik(int idKlinik) {  // Updated setter method name for clarity
+        this.idKlinik = idKlinik;
     }
 
     public String getNama() {
         return nama;
     }
 
-    public void setNama(String nama) {
-        this.nama = nama;
-    }
+   public void setNama(String nama) {
+       this.nama = nama;
+   }
 
-    public String getAlamat() {
-        return alamat;
-    }
+   public String getAlamat() {
+       return alamat;
+   }
 
-    public void setAlamat(String alamat) {
-        this.alamat = alamat;
-    }
+   public void setAlamat(String alamat) {
+       this.alamat = alamat;
+   }
 
-    public String getJamOperasional() {
-        return jamOperasional;
-    }
-    
-     public void setJamOperasional(String jamOperasional) {
-        this.jamOperasional = jamOperasional;
-    }
+   public String getJamOperasional() {
+       return jamOperasional; 
+   }
+
+   public void setJamOperasional(String jamOperasional) { 
+       this.jamOperasional = jamOperasional; 
+   }
 }
