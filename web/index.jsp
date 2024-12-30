@@ -4,48 +4,35 @@
 <head>
     <title>Dashboard Klinik</title>
     <!-- Import package Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" 
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" 
-        crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark d-flex justify-content-between px-5">
-        <a class="navbar-brand" href="index.jsp">Klinik Hewan</a>
-        
-        <div class="dropdown d-flex flex-block align-items-center">
-            <!-- Halaman Utama -->
-            <div class="me-5">
-                <a class="nav-link text-light" href="index.jsp">Home</a>
-            </div>
-            
-            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Menu Klinik
-            </button>
-            <ul class="dropdown-menu dropdown-menu-dark">
-              <li><a class="dropdown-item" href="klinik?menu=view">Daftar Klinik</a></li>
-              <li><a class="dropdown-item disabled" aria-disabled="true">Daftar Dokter</a></li>
-              <li><a class="dropdown-item disabled" aria-disabled="true">Daftar Pelanggan</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item disabled" aria-disabled="true">Janji Konsultasi</a></li>
-              <li><a class="dropdown-item disabled" aria-disabled="true">Rekam Medis</a></li>
-            </ul>
-        </div>
-    </nav>
-
-    <!-- Konten Halaman -->
     <div class="container my-5">
-        <div class="p-5 mb-4 rounded-3 shadow">
-            <div class="container py-5 text-center">
-                <h1 class="display-5 fw-bold">Selamat Datang di Aplikasi Klinik Hewan</h1>
-                <p class="lead">Aplikasi untuk manajemen klinik kesehatan hewan!</p>
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white text-center">
+                <h2>Login</h2>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="<%= request.getContextPath() %>/AuthController">
+                    <input type="hidden" name="action" value="login">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" name="username" placeholder="Username" required>
+                        <label>Username</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="password" class="form-control" name="password" placeholder="Password" required>
+                        <label>Password</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Login</button>
+                </form>
+                <% if (request.getParameter("error") != null) { %>
+                <div class="alert alert-danger mt-3 text-center">
+                    Username atau password salah!
+                </div>
+                <% } %>
             </div>
         </div>
     </div>
     
-    <!-- Import package Bootstrap JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" 
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" 
-        crossorigin="anonymous"></script>
 </body>
 </html>

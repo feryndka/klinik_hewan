@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import javax.servlet.http.HttpSession;
 import models.Klinik;
 
 @WebServlet(name = "KlinikController", urlPatterns = {"/klinik"})
@@ -16,40 +17,44 @@ public class KlinikController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // lakukan request parameter menu
+        // Inisialisasi object HttpSession untuk melakukan request session
+        HttpSession session = request.getSession();
+        // Lakukan pengecekan apakah var session untuk atribut "user" bernilai null
+        if (session == null || session.getAttribute("user") == null) {
+            // Lakukan send redirect secara langsung ke index.jsp
+            response.sendRedirect("index.jsp");
+            return;
+        }
+
         String menu = request.getParameter("menu");
-        // buat objek Klinik
-        Klinik klinik = new Klinik();
+        // Lakukan pengecekan jika var menu bernilai null atau kosong
+        if (menu == null || menu.isEmpty()) {
+            // Lakukan send redirect ke view, gunakan klinik?
+            response.sendRedirect("klinik?menu=view");
+            return;
+        }
+
+        Klinik klinikModel = new Klinik();
 
         if ("view".equals(menu)) {
-            // melakukan get data dari db dengan memanggil func get
-            ArrayList<Klinik> kln = klinik.get();
-            // dari data yang telah di get diatas, lakukan set atribut ke kln 
-            request.setAttribute("kln", kln);
-            // (mengarahkan ke halaman dashbord (view.jsp))
-            request.getRequestDispatcher("klinik/view.jsp").forward(request, response);
+            ArrayList<Klinik> kln = klinikModel.get();
+            request.setAttribute("klinik", kln);
+            request.getRequestDispatcher("/dokter/klinik/view.jsp").forward(request, response);
 
         } else if ("add".equals(menu)) {
-            // (mengarahkan ke halaman tambah klinik (add.jsp))
-            request.getRequestDispatcher("klinik/add.jsp").forward(request, response);
+            request.getRequestDispatcher("/dokter/klinik/add.jsp").forward(request, response);
 
         } else if ("edit".equals(menu)) {
-            // lakukan request parameter id
             String id = request.getParameter("id");
-            // lakukan search id sebelumnya menggunakan func find pada objek yang telah dibuat
-            Klinik foundKlinik = klinik.find(id);
-            if (foundKlinik != null) {
-                // lakukan set atribut klinik
-                request.setAttribute("klinik", foundKlinik);
-                // mengarahkan ke halaman edit klinik (edit.jsp)
-                request.getRequestDispatcher("klinik/edit.jsp").forward(request, response);
+            Klinik klinik = klinikModel.find(id);
+            if (klinik != null) {
+                request.setAttribute("klinik", klinik);
+                request.getRequestDispatcher("/dokter/klinik/edit.jsp").forward(request, response);
             } else {
-                // mengarahkan ke halaman dashboard (view.jsp)
                 response.sendRedirect("klinik?menu=view");
             }
 
         } else {
-            // mengarahkan ke halaman dashboard (view.jsp)
             response.sendRedirect("klinik?menu=view");
         }
     }
@@ -57,46 +62,47 @@ public class KlinikController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // lakukan request parameter action
+        HttpSession session = request.getSession();
+        if (session == null || session.getAttribute("user") == null) {
+            response.sendRedirect(request.getContextPath() + "/index.jsp");
+            return;
+        }
+
         String action = request.getParameter("action");
-        // buat objek Klinik
-        Klinik klinik = new Klinik();
+        Klinik klinikModel = new Klinik();
 
         if ("add".equals(action)) {
-            // lakukan request parameter nama
             String nama = request.getParameter("nama");
-            // lakukan request parameter alamat
             String alamat = request.getParameter("alamat");
-            // lakukan request parameter jam operasional
             String jamOperasional = request.getParameter("jamOperasional");
 
-            // set kolom nilai form dari objek yang telah dibuat menggunakan func set
-            klinik.setNama(nama);
-            klinik.setAlamat(alamat);
-            klinik.setJamOperasional(jamOperasional);
-            // panggil func insert pada objek yang telah dibuat
-            klinik.insert();
+            klinikModel.setNama(nama);
+            klinikModel.setAlamat(alamat);
+            klinikModel.setJamOperasional(jamOperasional);
+            klinikModel.insert();
 
         } else if ("edit".equals(action)) {
-            // lakukan request parameter id
             int id = Integer.parseInt(request.getParameter("id"));
-            // lakukan request parameter nama
             String nama = request.getParameter("nama");
-            // lakukan request parameter alamat
             String alamat = request.getParameter("alamat");
-            // lakukan request parameter jam operasional
             String jamOperasional = request.getParameter("jamOperasional");
 
-            // set kolom nilai form dari objek yang telah dibuat menggunakan func set
-            klinik.setId(id);
-            klinik.setNama(nama);
-            klinik.setAlamat(alamat);
-            klinik.setJamOperasional(jamOperasional);
-            // panggil func update pada objek yang telah dibuat
-            klinik.update();
+            klinikModel.setId(id);
+            klinikModel.setNama(nama);
+            klinikModel.setAlamat(alamat);
+            klinikModel.setJamOperasional(jamOperasional);
+            klinikModel.update();
+
+        // Lakukan pengecekan apakah var action bernilai "delete"
+        } else if ("delete".equals(action)) {
+            // var id menyimpan nilai request parameter "id", lakukan juga parseInt
+            int id = Integer.parseInt(request.getParameter("id"));
+            // Dari object Product yang telah dibuat sebelumnya, lakukan setId dengan nilai var id
+            klinikModel.setId(id);
+            // Dari object Product yang telah dibuat sebelumnya, panggil method delete
+            klinikModel.delete();
         }
-        
-        // mengarahkan ke halaman dashboard (view.jsp)
+
         response.sendRedirect("klinik?menu=view");
     }
 }
