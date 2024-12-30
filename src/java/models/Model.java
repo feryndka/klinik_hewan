@@ -28,7 +28,7 @@ public abstract class Model<E> {
 
     public void connect() {
         // (isi db_name dengan nama database)
-        db_name = "klinik_hewan";
+        db_name = "klinikHewan";
         user = "fery";
         password = "TeluJaya7Jaya";
         try {
