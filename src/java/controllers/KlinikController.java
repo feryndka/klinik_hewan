@@ -1,7 +1,6 @@
 package controllers;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,37 +12,28 @@ import models.Klinik;
 
 @WebServlet(name = "KlinikController", urlPatterns = {"/klinik"})
 public class KlinikController extends HttpServlet {
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Inisialisasi object HttpSession untuk melakukan request session
         HttpSession session = request.getSession();
-        // Lakukan pengecekan apakah var session untuk atribut "user" bernilai null
         if (session == null || session.getAttribute("user") == null) {
-            // Lakukan send redirect secara langsung ke index.jsp
             response.sendRedirect("index.jsp");
             return;
         }
-
+        
         String menu = request.getParameter("menu");
-        // Lakukan pengecekan jika var menu bernilai null atau kosong
         if (menu == null || menu.isEmpty()) {
-            // Lakukan send redirect ke view, gunakan klinik?
             response.sendRedirect("klinik?menu=view");
             return;
         }
 
         Klinik klinikModel = new Klinik();
-
         if ("view".equals(menu)) {
             ArrayList<Klinik> kln = klinikModel.get();
             request.setAttribute("klinik", kln);
             request.getRequestDispatcher("/dokter/klinik/view.jsp").forward(request, response);
-
         } else if ("add".equals(menu)) {
             request.getRequestDispatcher("/dokter/klinik/add.jsp").forward(request, response);
-
         } else if ("edit".equals(menu)) {
             String id = request.getParameter("id");
             Klinik klinik = klinikModel.find(id);
@@ -53,7 +43,6 @@ public class KlinikController extends HttpServlet {
             } else {
                 response.sendRedirect("klinik?menu=view");
             }
-
         } else {
             response.sendRedirect("klinik?menu=view");
         }
@@ -76,33 +65,35 @@ public class KlinikController extends HttpServlet {
             String alamat = request.getParameter("alamat");
             String jamOperasional = request.getParameter("jamOperasional");
 
+            // Set values in the model
             klinikModel.setNama(nama);
             klinikModel.setAlamat(alamat);
             klinikModel.setJamOperasional(jamOperasional);
-            klinikModel.insert();
 
-        } else if ("edit".equals(action)) {
-            int id = Integer.parseInt(request.getParameter("id"));
-            String nama = request.getParameter("nama");
-            String alamat = request.getParameter("alamat");
-            String jamOperasional = request.getParameter("jamOperasional");
+           // Insert into database
+           klinikModel.insert();  // Ensure this method is correctly implemented in your Model class
 
-            klinikModel.setId(id);
-            klinikModel.setNama(nama);
-            klinikModel.setAlamat(alamat);
-            klinikModel.setJamOperasional(jamOperasional);
-            klinikModel.update();
+       } else if ("edit".equals(action)) {
+           int idKlinik = Integer.parseInt(request.getParameter("id"));
+           String nama = request.getParameter("nama");
+           String alamat = request.getParameter("alamat");
+           String jamOperasional = request.getParameter("jamOperasional");
 
-        // Lakukan pengecekan apakah var action bernilai "delete"
-        } else if ("delete".equals(action)) {
-            // var id menyimpan nilai request parameter "id", lakukan juga parseInt
-            int id = Integer.parseInt(request.getParameter("id"));
-            // Dari object Product yang telah dibuat sebelumnya, lakukan setId dengan nilai var id
-            klinikModel.setId(id);
-            // Dari object Product yang telah dibuat sebelumnya, panggil method delete
-            klinikModel.delete();
-        }
+           // Set values in the model
+           klinikModel.setIdKlinik(idKlinik);  // Updated to use idKlinik
+           klinikModel.setNama(nama);
+           klinikModel.setAlamat(alamat);
+           klinikModel.setJamOperasional(jamOperasional);
 
-        response.sendRedirect("klinik?menu=view");
-    }
+          // Update database entry
+          klinikModel.update();  // Ensure this method is correctly implemented in your Model class
+
+      } else if ("delete".equals(action)) {
+          int idKlinik = Integer.parseInt(request.getParameter("id"));
+          klinikModel.setIdKlinik(idKlinik);  // Updated to use idKlinik
+          klinikModel.delete();  // Ensure this method is correctly implemented in your Model class
+      }
+
+      response.sendRedirect("klinik?menu=view");  // Redirect after processing action
+   }
 }
