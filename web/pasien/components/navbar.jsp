@@ -9,7 +9,7 @@
     <div class="dropdown d-flex flex-block align-items-center">
         <!-- Halaman Utama -->
         <div class="me-5">
-            <a class="nav-link text-light" href="user?menu=view_dokter">Home</a>
+            <a class="nav-link text-light" href="user?menu=view_pasien">Home</a>
         </div>
         
         <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
