@@ -19,7 +19,7 @@
             <li><a class="dropdown-item" href="klinik?menu=view">Daftar Klinik</a></li>
             <li><a class="dropdown-item" href="pelanggan">Daftar Pelanggan</a></li>
             <li><a class="dropdown-item" href="rekam_medis?menu=view_konsultasi">Janji Konsultasi</a></li>
-            <li><a class="dropdown-item disabled" aria-disabled="true">Rekam Medis</a></li>
+            <li><a class="dropdown-item" href="rekam_medis?menu=view">Rekam Medis</a></li>
             <li><hr class="dropdown-divider"></li>
             <li>
                 <!-- URL logout -->
