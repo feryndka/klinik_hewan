@@ -1,9 +1,3 @@
-<%-- 
-    Document   : navbar
-    Created on : Dec 30, 2024, 5:36:36 PM
-    Author     : Zefanya
---%>
-
 <!-- navbar.jsp -->
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -24,7 +18,7 @@
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="klinik?menu=view">Daftar Klinik</a></li>
             <li><a class="dropdown-item" href="pelanggan">Daftar Pelanggan</a></li>
-            <li><a class="dropdown-item disabled" aria-disabled="true">Janji Konsultasi</a></li>
+            <li><a class="dropdown-item" href="rekam_medis?menu=view_konsultasi">Janji Konsultasi</a></li>
             <li><a class="dropdown-item disabled" aria-disabled="true">Rekam Medis</a></li>
             <li><hr class="dropdown-divider"></li>
             <li>

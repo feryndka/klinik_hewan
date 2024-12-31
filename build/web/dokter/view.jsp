@@ -26,8 +26,10 @@
         <div class="container my-5">
             <div class="p-5 mb-4 rounded-3 shadow">
                 <div class="container py-5 text-center">
-                    <h1 class="display-5 fw-bold">Selamat Datang di Aplikasi Klinik Hewan</h1>
-                    <p class="lead">Aplikasi untuk manajemen klinik kesehatan hewan!</p>
+                    <h1 class="display-5 fw-bold">== Dokter ==</h1>
+                    <hr>
+                    <h2 class="display-7 fw-bold">Selamat Datang di Aplikasi Klinik Hewan</h2>
+                    <p class="lead">Aplikasi untuk konsultasi kesehatan hewan!</p>
                 </div>
             </div>
         </div>

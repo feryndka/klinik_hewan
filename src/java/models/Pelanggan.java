@@ -8,14 +8,14 @@ public class Pelanggan extends Model<Pelanggan> {
     private String nama;            // Name
     private String alamat;          // Address
     private long nomorTelepon;      // Phone number
-    private int klinik;             // Foreign Key to Klinik
+    private Klinik klinik;             // Foreign Key to Klinik
 
     public Pelanggan() {
         this.table = "pelanggan";   // Table name
         this.primaryKey = "idPelanggan"; // Primary key column name
     }
 
-    public Pelanggan(int idPelanggan, String nama, String alamat, long nomorTelepon, int klinik) {
+    public Pelanggan(int idPelanggan, String nama, String alamat, long nomorTelepon, Klinik klinik) {
         this();  // Call default constructor to set table and primary key
         this.idPelanggan = idPelanggan;
         this.nama = nama;
@@ -27,12 +27,14 @@ public class Pelanggan extends Model<Pelanggan> {
     @Override
     public Pelanggan toModel(ResultSet rs) {
         try {
+             Klinik klinik = new Klinik().toModel(rs);
+             
             return new Pelanggan(
                 rs.getInt("idPelanggan"),   // Match with SQL column name
                 rs.getString("nama"),
                 rs.getString("alamat"),
                 rs.getLong("nomor_telepon"), // Match with SQL column name
-                rs.getInt("klinik")          // Foreign Key to Klinik
+                klinik          // Foreign Key to Klinik
             );
         } catch (SQLException e) {
             System.out.println("Error: " + e.getMessage());
@@ -72,11 +74,11 @@ public class Pelanggan extends Model<Pelanggan> {
        this.nomorTelepon = nomorTelepon;
    }
 
-   public int getKlinik() { 
+   public Klinik getKlinik() { 
        return klinik; 
    } 
 
-   public void setKlinik(int klinik) { 
+   public void setKlinik(Klinik klinik) { 
        this.klinik = klinik; 
    }
 }

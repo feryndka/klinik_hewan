@@ -22,7 +22,7 @@
     
     <!-- Page Content -->         
     <div class="container my-5">
-        <h2 class="text-primary mb-4">Daftar Pelanggan</h2>
+        <h2 class="text-dark mb-4">Daftar Pelanggan</h2>
         <div class="table-responsive shadow">
             <table class="table table-striped table-hover">
                 <thead class="table-dark">

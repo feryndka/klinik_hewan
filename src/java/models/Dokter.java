@@ -7,14 +7,14 @@ public class Dokter extends Model<Dokter> {
     private int idDokter;           // Primary Key
     private String nama;            // Name of the doctor
     private String spesialisasi;     // Specialization of the doctor
-    private int klinik;             // Foreign Key to Klinik
+    private Klinik klinik;             // Foreign Key to Klinik
 
     public Dokter() {
         this.table = "dokter";      // Table name
         this.primaryKey = "idDokter";  // Primary key column name
     }
 
-    public Dokter(int idDokter, String nama, String spesialisasi, int klinik) {
+    public Dokter(int idDokter, String nama, String spesialisasi, Klinik klinik) {
         this();  // Call default constructor to set table and primary key
         this.idDokter = idDokter;
         this.nama = nama;
@@ -22,20 +22,21 @@ public class Dokter extends Model<Dokter> {
         this.klinik = klinik;
     }
 
-     @Override
-     public Dokter toModel(ResultSet rs) { 
-         try { 
-             return new Dokter(
-                 rs.getInt("idDokter"),     // Match with SQL column name 
-                 rs.getString("nama"),
-                 rs.getString("spesialisasi"),
-                 rs.getInt("klinik")         // Foreign Key to Klinik 
-             ); 
-         } catch (SQLException e) { 
-             System.out.println("Error: " + e.getMessage()); 
-             return null; 
-         } 
-     } 
+    @Override
+    public Dokter toModel(ResultSet rs) { 
+       try { 
+           Klinik klinik = new Klinik().toModel(rs);
+           return new Dokter(
+               rs.getInt("idDokter"),     // Match with SQL column name 
+               rs.getString("nama"),
+               rs.getString("spesialisasi"),
+               klinik         // Foreign Key to Klinik 
+           ); 
+       } catch (SQLException e) { 
+           System.out.println("Error: " + e.getMessage()); 
+           return null; 
+       } 
+    } 
 
      public int getIdDokter() { 
          return idDokter; 
@@ -61,11 +62,11 @@ public class Dokter extends Model<Dokter> {
          this.spesialisasi = spesialisasi;  
      }  
 
-     public int getKlinik() {  
+     public Klinik getKlinik() {  
          return klinik;  
      }  
 
-     public void setKlinik(int klinik) {  
+     public void setKlinik(Klinik klinik) {  
          this.klinik = klinik;  
       }
 }

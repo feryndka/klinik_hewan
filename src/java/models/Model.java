@@ -126,7 +126,7 @@ public abstract class Model<E> {
                 i++;
             }
         } catch(SQLException e) {
-
+            message = e.getMessage();
         }
         return res;
     }
@@ -194,8 +194,9 @@ public abstract class Model<E> {
         select = cols;
     }
 
-    public void join(String table, String on) {
-        join += " JOIN " + table + " ON " + on;
+    public Model<E> join(String table, String on) {
+        this.join += " JOIN " + table + " ON " + on;
+        return this;
     }
 
     public void where(String cond) {

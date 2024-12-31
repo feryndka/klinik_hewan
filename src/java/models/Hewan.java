@@ -8,14 +8,14 @@ public class Hewan extends Model<Hewan> {
     private String spesies;        // Species of the animal
     private String nama;           // Name of the animal
     private int usiaBulan;         // Age in months
-    private int pemilik;           // Foreign Key to Pelanggan
+    private Pelanggan pemilik;           // Foreign Key to Pelanggan
 
     public Hewan() {
         this.table = "hewan";      // Table name
         this.primaryKey = "id";    // Primary key column name
     }
 
-    public Hewan(int id, String spesies, String nama, int usiaBulan, int pemilik) {
+    public Hewan(int id, String spesies, String nama, int usiaBulan, Pelanggan pemilik) {
         this();  // Call default constructor to set table and primary key
         this.id = id;
         this.spesies = spesies;
@@ -27,12 +27,14 @@ public class Hewan extends Model<Hewan> {
     @Override
     public Hewan toModel(ResultSet rs) {
         try {
+            Pelanggan pemilik = new Pelanggan().toModel(rs);
+            
             return new Hewan(
                 rs.getInt("id"),            // Match with SQL column name
                 rs.getString("spesies"),
                 rs.getString("nama"),
                 rs.getInt("usia_bulan"),     // Match with SQL column name
-                rs.getInt("pemilik")         // Foreign Key to Pelanggan
+                pemilik         // Foreign Key to Pelanggan
             );
         } catch (SQLException e) {
             System.out.println("Error: " + e.getMessage());
@@ -72,11 +74,11 @@ public class Hewan extends Model<Hewan> {
        this.usiaBulan = usiaBulan; 
    } 
 
-   public int getPemilik() { 
+   public Pelanggan getPemilik() { 
        return pemilik; 
    } 
 
-   public void setPemilik(int pemilik) { 
+   public void setPemilik(Pelanggan pemilik) { 
        this.pemilik = pemilik; 
    }
 }
