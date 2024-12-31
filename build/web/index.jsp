@@ -8,8 +8,8 @@
 </head>
 <body>
     <div class="container my-5">
-        <div class="card shadow">
-            <div class="card-header bg-primary text-white text-center">
+        <div class="card shadow d-flex col-6 mx-auto">
+            <div class="card-header bg-dark text-white text-center">
                 <h2>Login</h2>
             </div>
             <div class="card-body">
@@ -23,7 +23,7 @@
                         <input type="password" class="form-control" name="password" placeholder="Password" required>
                         <label>Password</label>
                     </div>
-                    <button type="submit" class="btn btn-primary w-100">Login</button>
+                    <button type="submit" class="btn btn-dark w-100">Login</button>
                 </form>
                 <% if (request.getParameter("error") != null) { %>
                 <div class="alert alert-danger mt-3 text-center">

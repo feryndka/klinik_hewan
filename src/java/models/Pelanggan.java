@@ -5,6 +5,7 @@ import java.sql.SQLException;
 
 public class Pelanggan extends Model<Pelanggan> {
     private int idPelanggan;        // Primary Key
+    private String nama;            // Name
     private String alamat;          // Address
     private long nomorTelepon;      // Phone number
     private int klinik;             // Foreign Key to Klinik
@@ -14,9 +15,10 @@ public class Pelanggan extends Model<Pelanggan> {
         this.primaryKey = "idPelanggan"; // Primary key column name
     }
 
-    public Pelanggan(int idPelanggan, String alamat, long nomorTelepon, int klinik) {
+    public Pelanggan(int idPelanggan, String nama, String alamat, long nomorTelepon, int klinik) {
         this();  // Call default constructor to set table and primary key
         this.idPelanggan = idPelanggan;
+        this.nama = nama;
         this.alamat = alamat;
         this.nomorTelepon = nomorTelepon;
         this.klinik = klinik;
@@ -27,6 +29,7 @@ public class Pelanggan extends Model<Pelanggan> {
         try {
             return new Pelanggan(
                 rs.getInt("idPelanggan"),   // Match with SQL column name
+                rs.getString("nama"),
                 rs.getString("alamat"),
                 rs.getLong("nomor_telepon"), // Match with SQL column name
                 rs.getInt("klinik")          // Foreign Key to Klinik
@@ -44,6 +47,14 @@ public class Pelanggan extends Model<Pelanggan> {
     public void setIdPelanggan(int idPelanggan) {
         this.idPelanggan = idPelanggan;
     }
+
+    public String getNama() {
+        return nama;
+    }
+
+   public void setNama(String nama) {
+       this.nama = nama;
+   }
 
     public String getAlamat() {
         return alamat;
