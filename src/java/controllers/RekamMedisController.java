@@ -38,6 +38,10 @@ public class RekamMedisController extends HttpServlet {
             ArrayList<RekamMedis> rekamMedisList = rekamMedisModel.getAllRekamMedisWithRelations();
             request.setAttribute("rekamMedisList", rekamMedisList);
             request.getRequestDispatcher("/dokter/konsultasi/view.jsp").forward(request, response);
+        } else if ("view_konsultasi_pelanggan".equals(menu)) {
+            ArrayList<RekamMedis> rekamMedisList = rekamMedisModel.getAllRekamMedisWithRelations();
+            request.setAttribute("rekamMedisList", rekamMedisList);
+            request.getRequestDispatcher("/pasien/konsultasi/view.jsp").forward(request, response);
         } else if ("edit_konsultasi".equals(menu)) {
             String id = request.getParameter("id");
             RekamMedis rm = rekamMedisModel.find(id);
