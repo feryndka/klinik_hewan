@@ -23,8 +23,8 @@
     <!-- Page Content -->         
     <div class="container my-5">
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2 class="text-primary">Daftar Klinik</h2>
-            <a href="<%= request.getContextPath() %>/klinik?menu=add" class="btn btn-success btn-lg">Tambah Klinik</a>
+            <h2 class="text-dark">Daftar Klinik</h2>
+            <a href="<%= request.getContextPath() %>/klinik?menu=add" class="btn btn-primary btn-lg">Tambah Klinik</a>
         </div>
 
         <div class="table-responsive shadow">
@@ -53,7 +53,7 @@
                             <form method="POST" action="<%= request.getContextPath() %>/klinik" style="display: inline;">
                                 <input type="hidden" name="action" value="delete" />
                                 <input type="hidden" name="id" value="<%= kln.getIdKlinik() %>" />  <!-- Updated method call -->
-                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus klinik ini?');">Hapus</button>
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah anda yakin ingin menghapus klinik ini?');">Hapus</button>
                             </form>
                         </td>
                     </tr>

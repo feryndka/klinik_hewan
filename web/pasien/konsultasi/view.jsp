@@ -21,7 +21,10 @@
     
     <!-- Page Content -->         
     <div class="container my-5">
-        <h2 class="text-dark mb-4">Daftar Janji Konsultasi</h2>
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="text-dark">Daftar Janji Konsultasi</h2>
+            <a href="<%= request.getContextPath() %>/rekam_medis?menu=add" class="btn btn-primary btn-lg">Buat Janji Konsultasi</a>
+        </div>
         <div class="table-responsive shadow">
             <table class="table table-striped table-hover">
                 <thead class="table-dark">
@@ -32,7 +35,7 @@
                         <th>Usia Hewan</th>
                         <th>Diagnosa</th>
                         <th>Perawatan</th>
-                        <th>Aksi</th>
+                        <th>Dokter</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -42,6 +45,7 @@
                                 String namaHewan = rm.getHewan() != null ? rm.getHewan().getNama() : "Tidak Diketahui";
                                 String spesiesHewan = rm.getHewan() != null ? rm.getHewan().getSpesies() : "Tidak Diketahui";
                                 String namaPemilik = rm.getPemilik() != null ? rm.getPemilik().getNama() : "Tidak Diketahui";
+                                String namaDokter = rm.getDokter() != null ? rm.getDokter().getNama() : "Tidak Diketahui";
                     %>
                     <tr>
                         <td><%= rm.getIdRekam() %></td>
@@ -50,14 +54,7 @@
                         <td><%= namaPemilik %></td>
                         <td><%= rm.getDiagnosa() %></td>
                         <td><%= rm.getPerawatan() %></td>
-                        <td>
-                            <a href="<%= request.getContextPath() %>/rekam_medis?menu=edit&id=<%= rm.getIdRekam() %>" class="btn btn-success btn-sm">Diagnosa</a>
-                            <form method="POST" action="<%= request.getContextPath() %>/rekam_medis" style="display: inline;">
-                                <input type="hidden" name="action" value="delete" />
-                                <input type="hidden" name="id" value="<%= rm.getIdRekam() %>" />
-                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?');">Hapus</button>
-                            </form>
-                        </td>
+                        <td><%= namaDokter %></td>
                     </tr>
                     <%
                             }
