@@ -4,7 +4,7 @@
 
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark d-flex justify-content-between px-5">
-    <a class="navbar-brand" href="index.jsp">Klinik Hewan</a>
+    <a class="navbar-brand" href="user?menu=view_pasien">Klinik Hewan</a>
 
     <div class="dropdown d-flex flex-block align-items-center">
         <!-- Halaman Utama -->
