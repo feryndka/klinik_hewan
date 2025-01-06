@@ -8,8 +8,6 @@
         return;
     }
 
-    // Ambil daftar pelanggan dari request attribute
-    ArrayList<Pelanggan> pelangganList = (ArrayList<Pelanggan>) request.getAttribute("pelangganList");
 %>
 <!DOCTYPE html>
 <html lang="id">
@@ -35,6 +33,9 @@
                 </thead>
                 <tbody>
                     <%
+                        // Ambil daftar pelanggan dari request attribute
+                        ArrayList<Pelanggan> pelangganList = (ArrayList<Pelanggan>) request.getAttribute("pelangganList");
+                        
                         if (pelangganList != null && !pelangganList.isEmpty()) {
                             for (Pelanggan pelanggan : pelangganList) {
                     %>

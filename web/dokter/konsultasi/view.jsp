@@ -41,13 +41,13 @@
                             for (RekamMedis rm : rekamMedisList) {
                                 String namaHewan = rm.getHewan() != null ? rm.getHewan().getNama() : "Tidak Diketahui";
                                 String spesiesHewan = rm.getHewan() != null ? rm.getHewan().getSpesies() : "Tidak Diketahui";
-                                String namaPemilik = rm.getPemilik() != null ? rm.getPemilik().getNama() : "Tidak Diketahui";
+                                String namaPelanggan = rm.getPelanggan() != null ? rm.getPelanggan().getNama() : "Tidak Diketahui";
                     %>
                     <tr>
                         <td><%= rm.getIdRekam() %></td>
                         <td><%= namaHewan %></td>
                         <td><%= spesiesHewan %></td>
-                        <td><%= namaPemilik %></td>
+                        <td><%= namaPelanggan %></td>
                         <td><%= rm.getDiagnosa() %></td>
                         <td><%= rm.getPerawatan() %></td>
                         <td>

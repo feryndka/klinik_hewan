@@ -5,8 +5,8 @@ import java.sql.SQLException;
 
 public class Klinik extends Model<Klinik> {
     private int idKlinik;          // Change from 'id' to 'idKlinik' for clarity
-    private String nama;
-    private String alamat;
+    private String namaKlinik;
+    private String alamatKlinik;
     private String jamOperasional;  // Added field for operational hours
 
     public Klinik() {
@@ -17,8 +17,8 @@ public class Klinik extends Model<Klinik> {
     public Klinik(int idKlinik, String nama, String alamat, String jamOperasional) {
         this();  // Call default constructor to set table and primary key
         this.idKlinik = idKlinik;  // Set fields based on parameters
-        this.nama = nama;
-        this.alamat = alamat;
+        this.namaKlinik = nama;
+        this.alamatKlinik = alamat;
         this.jamOperasional = jamOperasional;
     }
 
@@ -27,8 +27,8 @@ public class Klinik extends Model<Klinik> {
         try {
             return new Klinik(
                 rs.getInt("idKlinik"),      // Match with SQL column name
-                rs.getString("nama"),
-                rs.getString("alamat"),
+                rs.getString("namaKlinik"),
+                rs.getString("alamatKlinik"),
                 rs.getString("jamOperasional")  // Ensure correct column name is used
             );
         } catch (SQLException e) {
@@ -37,35 +37,16 @@ public class Klinik extends Model<Klinik> {
         }
     }
 
-    public int getIdKlinik() {       // Updated getter method name for clarity
-        return idKlinik;
-    }
+    // Getters and Setters
+    public int getIdKlinik() { return idKlinik; } // Updated getter method name for clarity
+    public void setIdKlinik(int idKlinik) { this.idKlinik = idKlinik; } // Updated setter method name for clarity
 
-    public void setIdKlinik(int idKlinik) {  // Updated setter method name for clarity
-        this.idKlinik = idKlinik;
-    }
+    public String getNama() { return namaKlinik; }
+    public void setNama(String nama) { this.namaKlinik = nama; }
 
-    public String getNama() {
-        return nama;
-    }
+    public String getAlamat() { return alamatKlinik; }
+    public void setAlamat(String alamat) { this.alamatKlinik = alamat; }
 
-   public void setNama(String nama) {
-       this.nama = nama;
-   }
-
-   public String getAlamat() {
-       return alamat;
-   }
-
-   public void setAlamat(String alamat) {
-       this.alamat = alamat;
-   }
-
-   public String getJamOperasional() {
-       return jamOperasional; 
-   }
-
-   public void setJamOperasional(String jamOperasional) { 
-       this.jamOperasional = jamOperasional; 
-   }
+    public String getJamOperasional() { return jamOperasional; }
+    public void setJamOperasional(String jamOperasional) { this.jamOperasional = jamOperasional; }
 }

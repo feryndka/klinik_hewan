@@ -5,10 +5,10 @@ import java.sql.SQLException;
 
 public class Pelanggan extends Model<Pelanggan> {
     private int idPelanggan;        // Primary Key
-    private String nama;            // Name
-    private String alamat;          // Address
+    private String namaPelanggan;   // Name
+    private String alamatPelanggan; // Address
     private long nomorTelepon;      // Phone number
-    private Klinik klinik;             // Foreign Key to Klinik
+    private Klinik klinik;          // Foreign Key to Klinik
 
     public Pelanggan() {
         this.table = "pelanggan";   // Table name
@@ -18,8 +18,8 @@ public class Pelanggan extends Model<Pelanggan> {
     public Pelanggan(int idPelanggan, String nama, String alamat, long nomorTelepon, Klinik klinik) {
         this();  // Call default constructor to set table and primary key
         this.idPelanggan = idPelanggan;
-        this.nama = nama;
-        this.alamat = alamat;
+        this.namaPelanggan = nama;
+        this.alamatPelanggan = alamat;
         this.nomorTelepon = nomorTelepon;
         this.klinik = klinik;
     }
@@ -27,14 +27,14 @@ public class Pelanggan extends Model<Pelanggan> {
     @Override
     public Pelanggan toModel(ResultSet rs) {
         try {
-             Klinik klinik = new Klinik().toModel(rs);
+            Klinik klinik = new Klinik().toModel(rs);
              
             return new Pelanggan(
-                rs.getInt("idPelanggan"),   // Match with SQL column name
-                rs.getString("nama"),
-                rs.getString("alamat"),
-                rs.getLong("nomor_telepon"), // Match with SQL column name
-                klinik          // Foreign Key to Klinik
+                rs.getInt("idPelanggan"),           // Match with SQL column name
+                rs.getString("namaPelanggan"),
+                rs.getString("alamatPelanggan"),
+                rs.getLong("nomor_telepon"),        // Match with SQL column name
+                klinik                              // Foreign Key to Klinik
             );
         } catch (SQLException e) {
             System.out.println("Error: " + e.getMessage());
@@ -42,43 +42,19 @@ public class Pelanggan extends Model<Pelanggan> {
         }
     }
 
-    public int getIdPelanggan() {
-        return idPelanggan;
-    }
+    // Getters and setters
+    public int getIdPelanggan() { return idPelanggan; }
+    public void setIdPelanggan(int idPelanggan) { this.idPelanggan = idPelanggan; }
 
-    public void setIdPelanggan(int idPelanggan) {
-        this.idPelanggan = idPelanggan;
-    }
+    public String getNama() { return namaPelanggan; }
+    public void setNama(String nama) { this.namaPelanggan = nama; }
 
-    public String getNama() {
-        return nama;
-    }
+    public String getAlamat() { return alamatPelanggan; }
+    public void setAlamat(String alamat) { this.alamatPelanggan = alamat; }
 
-   public void setNama(String nama) {
-       this.nama = nama;
-   }
+    public long getNomorTelepon() { return nomorTelepon; }
+    public void setNomorTelepon(long nomorTelepon) { this.nomorTelepon = nomorTelepon; }
 
-    public String getAlamat() {
-        return alamat;
-    }
-
-   public void setAlamat(String alamat) {
-       this.alamat = alamat;
-   }
-
-   public long getNomorTelepon() {
-       return nomorTelepon;
-   }
-
-   public void setNomorTelepon(long nomorTelepon) {
-       this.nomorTelepon = nomorTelepon;
-   }
-
-   public Klinik getKlinik() { 
-       return klinik; 
-   } 
-
-   public void setKlinik(Klinik klinik) { 
-       this.klinik = klinik; 
-   }
+    public Klinik getKlinik() { return klinik; } 
+    public void setKlinik(Klinik klinik) { this.klinik = klinik; }
 }

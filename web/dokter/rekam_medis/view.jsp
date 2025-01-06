@@ -33,16 +33,18 @@
                         <th>Diagnosa</th>
                         <th>Perawatan</th>
                         <th>Nama Dokter</th>
+                        <th>Klinik</th>
                     </tr>
                 </thead>
                 <tbody>
                     <%
                         if (rekamMedisList != null && !rekamMedisList.isEmpty()) {
                             for (RekamMedis rm : rekamMedisList) {
-                                String namaPemilik = rm.getPemilik() != null ? rm.getPemilik().getNama() : "Tidak Diketahui";
+                                String namaPemilik = rm.getPelanggan() != null ? rm.getPelanggan().getNama() : "Tidak Diketahui";
                                 String namaHewan = rm.getHewan() != null ? rm.getHewan().getNama() : "Tidak Diketahui";
                                 String spesiesHewan = rm.getHewan() != null ? rm.getHewan().getSpesies() : "Tidak Diketahui";
                                 String namaDokter = rm.getDokter() != null ? rm.getDokter().getNama() : "Tidak Diketahui";
+                                String namaKlinik = rm.getKlinik() != null ? rm.getKlinik().getNama() : "Tidak Diketahui";
                     %>
                     <tr>
                         <td><%= rm.getIdRekam() %></td>
@@ -52,6 +54,7 @@
                         <td><%= rm.getDiagnosa() %></td>
                         <td><%= rm.getPerawatan() %></td>
                         <td><%= namaDokter %></td>
+                        <td><%= namaKlinik %></td>
                     </tr>
                     <%
                             }

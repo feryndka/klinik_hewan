@@ -14,7 +14,13 @@
             Menu
         </button>
         <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end">
-            <li><a class="dropdown-item disabled text-center" aria-disabled="true">-- ${user} --</a></li>
+            <li>
+                <a class="dropdown-item disabled text-center" aria-disabled="true">
+                    -- 
+                    ${user}
+                    --
+                </a>
+            </li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="klinik?menu=view">Daftar Klinik</a></li>
             <li><a class="dropdown-item" href="pelanggan">Daftar Pelanggan</a></li>
