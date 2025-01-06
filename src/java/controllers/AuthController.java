@@ -28,10 +28,12 @@ public class AuthController extends HttpServlet {
             case "login" -> {
                 String username = request.getParameter("username");
                 String password = request.getParameter("password");
+                
                 // Use User model to find user by username and password
                 User userModel = new User();
                 userModel.where("username = '" + username + "' AND password = '" + password + "'");
                 User user = userModel.get().stream().findFirst().orElse(null);
+                
                 // Check if user is found
                 if (user != null) {
                     HttpSession session = request.getSession();

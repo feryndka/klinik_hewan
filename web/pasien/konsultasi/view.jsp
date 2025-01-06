@@ -23,7 +23,7 @@
     <div class="container my-5">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h2 class="text-dark">Daftar Janji Konsultasi</h2>
-            <a href="<%= request.getContextPath() %>/rekam_medis?menu=add" class="btn btn-primary btn-lg">Buat Janji Konsultasi</a>
+            <a href="<%= request.getContextPath() %>/rekam_medis?menu=add_konsultasi_pelanggan" class="btn btn-primary btn-lg">Buat Janji Konsultasi</a>
         </div>
         <div class="table-responsive shadow">
             <table class="table table-striped table-hover">
