@@ -100,8 +100,9 @@ public class RekamMedisController extends HttpServlet {
                 usia = Integer.parseInt(usiaStr);
 
                 // Data pelanggan yang login
-                //User user = (User) session.getAttribute("user");
-                Pelanggan pelanggan = (Pelanggan) session.getAttribute("pelanggan");
+                User user = (User) session.getAttribute("user");
+                Pelanggan pelanggan = (Pelanggan) user.getPelanggan();
+                //Pelanggan pelanggan = (Pelanggan) session.getAttribute("pelanggan");
                 int idPelanggan = pelanggan.getIdPelanggan();
 
                 // Membuat model Hewan

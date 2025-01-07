@@ -1,10 +1,42 @@
+<%@page import="models.User"%>
+<%@page import="models.Pelanggan"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="models.Klinik"%>
 <%@page import="models.Dokter"%>
 <%@page import="models.Hewan"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
-    // Ambil daftar klinik dari database
+    HttpSession userSession = request.getSession();
+    Pelanggan pelanggan = (Pelanggan) userSession.getAttribute("pelanggan");
+    if (pelanggan == null) {
+        out.println("Pelanggan is null.");
+    } else {
+        out.println("Pelanggan retrieved: " + pelanggan.getNama()); // or whatever method you have
+    }
+    
+    String uyername = (String) userSession.getAttribute("username");
+    if (uyername == null) {
+        out.println("Username is null.");
+    } else {
+        out.println("Uyername retrieved: " + uyername); // or whatever method you have
+    }
+        
+    User user = (User) userSession.getAttribute("user");
+    if (user == null) {
+        out.println("User is null.");
+    } else {
+        out.println("User retrieved: " + user.getUsername()); // or whatever method you have
+    }
+    
+    Pelanggan pelanggan2 = new Pelanggan();
+    
+    pelanggan2 = user.getPelanggan();
+    if (pelanggan == null) {
+        out.println("Pelanggan is null.");
+    } else {
+        out.println("Pelanggan retrieved: " + pelanggan.getNama()); // or whatever method you have
+    }
+        
     ArrayList<Klinik> klinikList = new Klinik().get();
 %>
 <!DOCTYPE html>
@@ -18,6 +50,7 @@
         <div class="card shadow d-flex col-8 mx-auto">
             <div class="card-header bg-dark text-white text-center">
                 <h2>Buat Janji Konsultasi</h2>
+                <h3> ${username} </h3>
             </div>
             <div class="card-body">
                 <form method="POST" action="rekam_medis">
