@@ -1,3 +1,6 @@
+<%@page import="models.Klinik"%>
+<%@page import="models.Dokter"%>
+<%@page import="models.Hewan"%>
 <%@page import="models.RekamMedis"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -43,11 +46,16 @@
                     <%
                         if (rekamMedisList != null && !rekamMedisList.isEmpty()) {
                             for (RekamMedis rm : rekamMedisList) {
-                                String namaHewan = rm.getHewan() != null ? rm.getHewan().getNama() : "Tidak Diketahui";
-                                String spesiesHewan = rm.getHewan() != null ? rm.getHewan().getSpesies() : "Tidak Diketahui";
-                                int usiaHewan = rm.getHewan() != null ? rm.getHewan().getUsiaBulan() : 0;
-                                String namaDokter = rm.getDokter() != null ? rm.getDokter().getNama() : "Tidak Diketahui";
-                                String namaKlinik = rm.getKlinik() != null ? rm.getKlinik().getNama() : "Tidak Diketahui";
+                                Hewan hewan = rm.getHewanById(); // Need a method to fetch the Hewan object
+                                String namaHewan = hewan != null ? hewan.getNama() : "Tidak Diketahui";
+                                String spesiesHewan = hewan != null ? hewan.getSpesies() : "Tidak Diketahui";
+                                int usiaHewan = hewan.getUsiaBulan();
+                                
+                                Dokter dokter = rm.getDokterById();
+                                String namaDokter = dokter != null ? dokter.getNama() : "Tidak Diketahui";
+                                
+                                Klinik klinik = rm.getKlinikById();
+                                String namaKlinik = klinik != null ? klinik.getNama() : "Tidak Diketahui";
                     %>
                     <tr>
                         <td><%= rm.getIdRekam() %></td>

@@ -3,6 +3,7 @@ package models;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import models.RekamMedis;
 
 public class Hewan extends Model<Hewan> {
     private int id;                // Primary Key
@@ -15,7 +16,7 @@ public class Hewan extends Model<Hewan> {
         this.table = "hewan";      // Table name
         this.primaryKey = "id";    // Primary key column name
     }
-    
+
     public Hewan(int id, String spesies, String namaHewan, int usiaBulan, int pemilikId) {
         this();  // Call default constructor to set table and primary key
         this.id = id;
@@ -41,26 +42,43 @@ public class Hewan extends Model<Hewan> {
         }
     }
 
-   public ArrayList<Hewan> getAllHewanWithRelations() {
-       this.join("pelanggan", "hewan.pemilik = pelanggan.idPelanggan");
-       this.select("hewan.*, "
-           + "pelanggan.idPelanggan AS idPelanggan, pelanggan.namaPelanggan AS namaPelanggan, "
-           + "pelanggan.alamatPelanggan AS alamatPelanggan, pelanggan.nomor_telepon AS nomor_telepon");
-       return this.get();
-   }
+    public ArrayList<Hewan> getAllHewanWithRelations() {
+        this.join("pelanggan", "hewan.pemilik = pelanggan.idPelanggan");
+        this.select("hewan.*, "
+            + "pelanggan.idPelanggan AS idPelanggan, pelanggan.namaPelanggan AS namaPelanggan, "
+            + "pelanggan.alamatPelanggan AS alamatPelanggan, pelanggan.nomor_telepon AS nomor_telepon");
+        return this.get();
+    }
 
-   // Getters and setters for all fields including IDs.
-   public int getId() { return id; }
-   public void setId(int id) { this.id = id; }
-   public String getSpesies() { return spesies; }
-   public void setSpesies(String spesies) { this.spesies = spesies; }
-   public String getNama() { return namaHewan; }
-   public void setNama(String nama) { this.namaHewan = nama; }
-   public int getUsiaBulan() { return usiaBulan; }
-   public void setUsiaBulan(int usiaBulan) { this.usiaBulan = usiaBulan; }
-   
-   public int getPemilikId() { return pemilikId; } 
-   public void setPemilikId(int pemilikId) { 
-       this.pemilikId = pemilikId; 
-   }
+    // Getters and setters for all fields including IDs.
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
+    public String getSpesies() { return spesies; }
+    public void setSpesies(String spesies) { this.spesies = spesies; }
+    public String getNama() { return namaHewan; }
+    public void setNama(String nama) { this.namaHewan = nama; }
+    public int getUsiaBulan() { return usiaBulan; }
+    public void setUsiaBulan(int usiaBulan) { this.usiaBulan = usiaBulan; }
+
+    public int getPemilikId() { return pemilikId; } 
+    public void setPemilikId(int pemilikId) { 
+        this.pemilikId = pemilikId; 
+    } 
+ 
+    public Hewan find(int id) {
+        try {
+            connect(); // Connect to the database
+            String query = "SELECT " + select + " FROM " + table + " WHERE " + primaryKey + " = " + id;
+            ResultSet rs = stmt.executeQuery(query);
+            if (rs.next()) {
+                return toModel(rs); // Convert ResultSet to Hewan model
+            }
+        } catch (SQLException e) {
+            setMessage(e.getMessage()); // Set any error messages from the exception
+        } finally {
+            disconnect(); // Ensure the database connection is closed
+            select = "*"; // Reset the select statement for future queries
+        }
+        return null; // Return null if the object was not found
+    }
 }

@@ -62,4 +62,21 @@ public class Dokter extends Model<Dokter> {
 
     public Klinik getKlinik() { return klinik; }  
     public void setKlinik(Klinik klinik) { this.klinik = klinik; }
+    
+    public Dokter find(int id) {
+        try {
+            connect(); // Connect to the database
+            String query = "SELECT " + select + " FROM " + table + " WHERE " + primaryKey + " = " + id;
+            ResultSet rs = stmt.executeQuery(query);
+            if (rs.next()) {
+                return toModel(rs); // Convert ResultSet to Doktermodel
+            }
+        } catch (SQLException e) {
+            setMessage(e.getMessage()); // Set any error messages from the exception
+        } finally {
+            disconnect(); // Ensure the database connection is closed
+            select = "*"; // Reset the select statement for future queries
+        }
+        return null; // Return null if the object was not found
+    }
 }

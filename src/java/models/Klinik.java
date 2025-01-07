@@ -49,4 +49,21 @@ public class Klinik extends Model<Klinik> {
 
     public String getJamOperasional() { return jamOperasional; }
     public void setJamOperasional(String jamOperasional) { this.jamOperasional = jamOperasional; }
+    
+    public Klinik find(int id) {
+        try {
+            connect(); // Connect to the database
+            String query = "SELECT " + select + " FROM " + table + " WHERE " + primaryKey + " = " + id;
+            ResultSet rs = stmt.executeQuery(query);
+            if (rs.next()) {
+                return toModel(rs); // Convert ResultSet to Klinik model
+            }
+        } catch (SQLException e) {
+            setMessage(e.getMessage()); // Set any error messages from the exception
+        } finally {
+            disconnect(); // Ensure the database connection is closed
+            select = "*"; // Reset the select statement for future queries
+        }
+        return null; // Return null if the object was not found
+    }
 }

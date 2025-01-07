@@ -20,7 +20,7 @@ public abstract class Model<E> {
     
     private String db_name, user, password;
     private Connection con;
-    private Statement stmt;
+    Statement stmt;
     private boolean isConnected;
     private String message;
     protected String table;

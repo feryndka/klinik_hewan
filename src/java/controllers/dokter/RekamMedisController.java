@@ -109,7 +109,7 @@ public class RekamMedisController extends HttpServlet {
                 hewan.setNama(namaHewan);
                 hewan.setSpesies(spesies);
                 hewan.setUsiaBulan(usia);
-                hewan.setPemilikId(pelanggan != null ? idPelanggan : 0);
+                hewan.setPemilikId(idPelanggan);
                 
                 hewan.insert();
                 logger.info("Insert Hewan successfully.");

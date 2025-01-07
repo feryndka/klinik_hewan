@@ -60,33 +60,65 @@ public class RekamMedis extends Model<RekamMedis> {
        return this.get();
    }
 
-   // Getters and setters for all fields including IDs.
-   public int getIdRekam() { return idRekam; }
-   public void setIdRekam(int idRekam) { this.idRekam = idRekam; }
-   public String getDiagnosa() { return diagnosa; }
-   public void setDiagnosa(String diagnosa) { this.diagnosa = diagnosa; }
-   public String getPerawatan() { return perawatan; }
-   public void setPerawatan(String perawatan) { this.perawatan = perawatan; }
-   
-   public int getHewan() { 
-       return hewanId; 
-   }
-   public void setHewan(int hewanId) { 
-       this.hewanId = hewanId; 
-   } 
+    // Getters and setters for all fields including IDs.
+    public int getIdRekam() { return idRekam; }
+    public void setIdRekam(int idRekam) { this.idRekam = idRekam; }
+    public String getDiagnosa() { return diagnosa; }
+    public void setDiagnosa(String diagnosa) { this.diagnosa = diagnosa; }
+    public String getPerawatan() { return perawatan; }
+    public void setPerawatan(String perawatan) { this.perawatan = perawatan; }
 
-   public int getPelanggan() { return pemilikId; } 
-   public void setPelanggan(int pemilikId) { 
-       this.pemilikId = pemilikId; 
-   } 
+    public int getHewan() { 
+        return hewanId; 
+    }
+    public void setHewan(int hewanId) { 
+        this.hewanId = hewanId; 
+    } 
 
-   public int getDokter() { return dokterId; } 
-   public void setDokter(Integer dokterId) { 
-       this.dokterId= dokterId ; 
-  } 
+    public int getPelanggan() { return pemilikId; } 
+    public void setPelanggan(int pemilikId) { 
+        this.pemilikId = pemilikId; 
+    } 
 
-  public int getKlinik() { return klinikId ; }  
-  public void setKlinik(int klinikId ) {  
-      this.klinikId= klinikId ;  
-  }
+    public int getDokter() { return dokterId; } 
+    public void setDokter(Integer dokterId) { 
+        this.dokterId= dokterId ; 
+    } 
+
+    public int getKlinik() { return klinikId ; }  
+    public void setKlinik(int klinikId ) {  
+       this.klinikId= klinikId ;  
+    }
+    
+    public RekamMedis find(int id) {
+        try {
+            connect(); // Connect to the database
+            String query = "SELECT " + select + " FROM " + table + " WHERE " + primaryKey + " = " + id;
+            ResultSet rs = stmt.executeQuery(query);
+            if (rs.next()) {
+                return toModel(rs); // Convert ResultSet to Doktermodel
+            }
+        } catch (SQLException e) {
+            setMessage(e.getMessage()); // Set any error messages from the exception
+        } finally {
+            disconnect(); // Ensure the database connection is closed
+            select = "*"; // Reset the select statement for future queries
+        }
+        return null; // Return null if the object was not found
+    }
+
+    public Hewan getHewanById() {
+        Hewan hewan = new Hewan();
+        return hewan.find(this.hewanId); // Assuming find() is a method in Hewan class to fetch a Hewan by ID.
+    }
+
+    public Dokter getDokterById() {
+        Dokter dokter = new Dokter();
+        return dokter.find(this.dokterId); // Assuming find() is a method in Hewan class to fetch Dokter by ID.
+    }
+    
+    public Klinik getKlinikById() {
+        Klinik klinik = new Klinik();
+        return klinik.find(this.klinikId); // Assuming find() is a method in Hewan class to fetch a Hewan by ID.
+    }
 }
