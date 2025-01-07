@@ -8,25 +8,25 @@ public class RekamMedis extends Model<RekamMedis> {
     private int idRekam;           // Primary Key
     private String diagnosa;       // Diagnosis details
     private String perawatan;      // Treatment details
-    private int hewanId;           // Store only the ID of Hewan
-    private int pemilikId;         // Store only the ID of Pelanggan (owner)
-    private Integer dokterId;          // Store only the ID of Dokter
-    private int klinikId;          // Store only the ID of Klinik
+    private int hewan;           // Store only the ID of Hewan
+    private int pemilik;         // Store only the ID of Pelanggan (owner)
+    private Integer dokter;          // Store only the ID of Dokter
+    private int klinik;          // Store only the ID of Klinik
 
     public RekamMedis() {
         this.table = "rekam_medis";  // Table name
         this.primaryKey = "idRekam";  // Primary key column name
     }
 
-    public RekamMedis(int idRekam, String diagnosa, String perawatan, int hewanId, int pemilikId, int dokterId, int klinikId) {
+    public RekamMedis(int idRekam, String diagnosa, String perawatan, int hewan, int pemilik, int dokter, int klinik) {
         this();  // Call default constructor to set table and primary key
         this.idRekam = idRekam;
         this.diagnosa = diagnosa;
         this.perawatan = perawatan;
-        this.hewanId = hewanId;
-        this.pemilikId = pemilikId;
-        this.dokterId = dokterId;
-        this.klinikId = klinikId;
+        this.hewan = hewan;
+        this.pemilik = pemilik;
+        this.dokter = dokter;
+        this.klinik = klinik;
     }
 
     @Override
@@ -69,25 +69,25 @@ public class RekamMedis extends Model<RekamMedis> {
     public void setPerawatan(String perawatan) { this.perawatan = perawatan; }
 
     public int getHewan() { 
-        return hewanId; 
+        return hewan; 
     }
-    public void setHewan(int hewanId) { 
-        this.hewanId = hewanId; 
+    public void setHewan(int hewan) { 
+        this.hewan = hewan; 
     } 
 
-    public int getPelanggan() { return pemilikId; } 
-    public void setPelanggan(int pemilikId) { 
-        this.pemilikId = pemilikId; 
+    public int getPelanggan() { return pemilik; } 
+    public void setPelanggan(int pemilik) { 
+        this.pemilik = pemilik; 
     } 
 
-    public int getDokter() { return dokterId; } 
-    public void setDokter(Integer dokterId) { 
-        this.dokterId= dokterId ; 
+    public int getDokter() { return dokter; } 
+    public void setDokter(Integer dokter) { 
+        this.dokter= dokter ; 
     } 
 
-    public int getKlinik() { return klinikId ; }  
-    public void setKlinik(int klinikId ) {  
-       this.klinikId= klinikId ;  
+    public int getKlinik() { return klinik ; }  
+    public void setKlinik(int klinik ) {  
+       this.klinik= klinik ;  
     }
     
     public RekamMedis find(int id) {
@@ -109,16 +109,16 @@ public class RekamMedis extends Model<RekamMedis> {
 
     public Hewan getHewanById() {
         Hewan hewan = new Hewan();
-        return hewan.find(this.hewanId); // Assuming find() is a method in Hewan class to fetch a Hewan by ID.
+        return hewan.find(this.hewan); // Assuming find() is a method in Hewan class to fetch a Hewan by ID.
     }
 
     public Dokter getDokterById() {
         Dokter dokter = new Dokter();
-        return dokter.find(this.dokterId); // Assuming find() is a method in Hewan class to fetch Dokter by ID.
+        return dokter.find(this.dokter); // Assuming find() is a method in Hewan class to fetch Dokter by ID.
     }
     
     public Klinik getKlinikById() {
         Klinik klinik = new Klinik();
-        return klinik.find(this.klinikId); // Assuming find() is a method in Hewan class to fetch a Hewan by ID.
+        return klinik.find(this.klinik); // Assuming find() is a method in Hewan class to fetch a Hewan by ID.
     }
 }

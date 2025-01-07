@@ -1,11 +1,10 @@
-<%@page import="models.User"%>
-<%@page import="models.Pelanggan"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="models.Klinik"%>
 <%@page import="models.Dokter"%>
 <%@page import="models.Hewan"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
+    /**
     HttpSession userSession = request.getSession();
     Pelanggan pelanggan = (Pelanggan) userSession.getAttribute("pelanggan");
     if (pelanggan == null) {
@@ -28,14 +27,13 @@
         out.println("User retrieved: " + user.getUsername()); // or whatever method you have
     }
     
-    Pelanggan pelanggan2 = new Pelanggan();
+    Pelanggan pelanggan2 = user.getPelangganById();
     
-    pelanggan2 = user.getPelanggan();
-    if (pelanggan == null) {
+    if (pelanggan2 == null) {
         out.println("Pelanggan is null.");
     } else {
-        out.println("Pelanggan retrieved: " + pelanggan.getNama()); // or whatever method you have
-    }
+        out.println("Pelanggan retrieved: " + pelanggan2.getNama()); // or whatever method you have
+    }*/
         
     ArrayList<Klinik> klinikList = new Klinik().get();
 %>

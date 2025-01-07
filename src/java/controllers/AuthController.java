@@ -21,6 +21,7 @@ public class AuthController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String action = request.getParameter("action");
+        System.out.println("Do Post works.");
         
         if (null == action) {
             response.sendRedirect(request.getContextPath() + "/index.jsp");
@@ -31,8 +32,7 @@ public class AuthController extends HttpServlet {
                 
                 // Use User model to find user by username and password
                 User userModel = new User();
-                userModel.where("username = '" + username + "' AND password = '" + password + "'");
-                User user = userModel.get().stream().findFirst().orElse(null);
+                User user = userModel.validateUser(username, password); // Validate the user
                 
                 // Check if user is found
                 if (user != null) {
@@ -40,8 +40,8 @@ public class AuthController extends HttpServlet {
                     session.setAttribute("user", user);
                     session.setAttribute("username", user.getUsername());
                     session.setAttribute("role", user.getRole());
-                    session.setAttribute("pelanggan", user.getPelanggan());
-                    session.setAttribute("dokter", user.getDokter());
+                    //session.setAttribute("pelanggan", user.getPelanggan());
+                    //session.setAttribute("dokter", user.getDokter());
                     
                     if (null == user.getRole()) { // Redirect based on user role
                         response.sendRedirect(request.getContextPath() + "/index.jsp?error=3"); // Unknown role

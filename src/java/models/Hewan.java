@@ -3,6 +3,7 @@ package models;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.sql.PreparedStatement;
 import models.RekamMedis;
 
 public class Hewan extends Model<Hewan> {
@@ -10,20 +11,20 @@ public class Hewan extends Model<Hewan> {
     private String spesies;        // Species of the animal
     private String namaHewan;      // Name of the animal
     private int usiaBulan;         // Age in months
-    private int pemilikId;         // Store only the ID of Pelanggan (owner)
+    private int pemilik;         // Store only the ID of Pelanggan (owner)
 
     public Hewan() {
         this.table = "hewan";      // Table name
         this.primaryKey = "id";    // Primary key column name
     }
 
-    public Hewan(int id, String spesies, String namaHewan, int usiaBulan, int pemilikId) {
+    public Hewan(int id, String spesies, String namaHewan, int usiaBulan, int pemilik) {
         this();  // Call default constructor to set table and primary key
         this.id = id;
         this.spesies = spesies;
         this.namaHewan = namaHewan;
         this.usiaBulan = usiaBulan;
-        this.pemilikId = pemilikId;  // Set owner ID directly
+        this.pemilik = pemilik;  // Set owner ID directly
     }
 
     @Override
@@ -33,12 +34,46 @@ public class Hewan extends Model<Hewan> {
                 rs.getInt("id"),            // Match with SQL column name
                 rs.getString("spesies"),
                 rs.getString("namaHewan"),
-                rs.getInt("usia_bulan"),     // Match with SQL column name
+                rs.getInt("usiaBulan"),     // Match with SQL column name
                 rs.getInt("pemilik")         // Get owner ID directly from ResultSet
             );
         } catch (SQLException e) {
             System.out.println("Error: " + e.getMessage());
             return null;
+        }
+    }
+    
+    @Override
+    public void insert() {
+        String sql = "INSERT INTO " + table + " (spesies, namaHewan, usiaBulan, pemilik) VALUES (?, ?, ?, ?)";
+        
+        try {
+            connect(); // Connect to the database
+            
+            try (PreparedStatement pstmt = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
+                pstmt.setString(1, spesies);
+                pstmt.setString(2, namaHewan);
+                pstmt.setInt(3, usiaBulan);
+                pstmt.setInt(4, pemilik);
+
+                // Execute the insertion
+                int affectedRows = pstmt.executeUpdate();
+                
+                // Check if the insertion was successful
+                if (affectedRows > 0) {
+                    // Retrieve and set the generated keys
+                    try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
+                        if (generatedKeys.next()) {
+                            this.id = generatedKeys.getInt(1); // Set the generated ID
+                        }
+                    }
+                }
+                System.out.println("Inserted: " + affectedRows + " rows.");
+            }
+        } catch (SQLException e) {
+            System.out.println("Error during inserting Hewan: " + e.getMessage());
+        } finally {
+            disconnect(); // Ensure the database connection is closed
         }
     }
 
@@ -60,9 +95,9 @@ public class Hewan extends Model<Hewan> {
     public int getUsiaBulan() { return usiaBulan; }
     public void setUsiaBulan(int usiaBulan) { this.usiaBulan = usiaBulan; }
 
-    public int getPemilikId() { return pemilikId; } 
-    public void setPemilikId(int pemilikId) { 
-        this.pemilikId = pemilikId; 
+    public int getPemilikId() { return pemilik; } 
+    public void setPemilikId(int pemilik) { 
+        this.pemilik = pemilik; 
     } 
  
     public Hewan find(int id) {
@@ -71,7 +106,7 @@ public class Hewan extends Model<Hewan> {
             String query = "SELECT " + select + " FROM " + table + " WHERE " + primaryKey + " = " + id;
             ResultSet rs = stmt.executeQuery(query);
             if (rs.next()) {
-                return toModel(rs); // Convert ResultSet to Hewan model
+                return toModel(rs); // Convert ResultSet to Doktermodel
             }
         } catch (SQLException e) {
             setMessage(e.getMessage()); // Set any error messages from the exception

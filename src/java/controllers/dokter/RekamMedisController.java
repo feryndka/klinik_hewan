@@ -101,7 +101,7 @@ public class RekamMedisController extends HttpServlet {
 
                 // Data pelanggan yang login
                 User user = (User) session.getAttribute("user");
-                Pelanggan pelanggan = (Pelanggan) user.getPelanggan();
+                Pelanggan pelanggan = user.getPelangganById();
                 //Pelanggan pelanggan = (Pelanggan) session.getAttribute("pelanggan");
                 int idPelanggan = pelanggan.getIdPelanggan();
 
@@ -113,9 +113,11 @@ public class RekamMedisController extends HttpServlet {
                 hewan.setPemilikId(idPelanggan);
                 
                 hewan.insert();
-                logger.info("Insert Hewan successfully.");
+                System.out.println("Insert Hewan successfully.");
+                System.out.println("ID Hewan: " + hewan.getId());
+                System.out.println("Nama Hewan: " + hewan.getNama());
                 
-                rekamMedisModel.setHewan(1);    
+                rekamMedisModel.setHewan(hewan.getId());    
 
                 // Membuat model Klinik
                 Klinik klinik = new Klinik();
@@ -130,7 +132,7 @@ public class RekamMedisController extends HttpServlet {
 
                 // Insert into database
                 rekamMedisModel.insert();
-                logger.info("Insert Rekam Medis successfully.");
+                System.out.println("Insert Rekam Medis successfully.");
 
                 response.sendRedirect("rekam_medis?menu=view_konsultasi_pelanggan"); // Redirect after processing
             } catch (IOException | NumberFormatException e){

@@ -19,7 +19,7 @@ public abstract class Model<E> {
     private static final Logger logger = Logger.getLogger(Model.class.getName());
     
     private String db_name, user, password;
-    private Connection con;
+    Connection con;
     Statement stmt;
     private boolean isConnected;
     private String message;
@@ -72,9 +72,11 @@ public abstract class Model<E> {
                                             + " VALUES ('" + values.substring(0, values.length() - 4) + "')");
             message = "info insert: " + result + " rows affected";
             logger.info(message);
+            System.out.println(message);
         } catch (IllegalAccessException | IllegalArgumentException | SecurityException | SQLException e) {
             message = e.getMessage();
             logger.log(Level.SEVERE, "Error inserting data: {0}", e.getMessage());
+            System.out.println(message);
         } finally {
             disconnect();
         }

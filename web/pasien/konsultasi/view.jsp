@@ -46,10 +46,10 @@
                     <%
                         if (rekamMedisList != null && !rekamMedisList.isEmpty()) {
                             for (RekamMedis rm : rekamMedisList) {
-                                Hewan hewan = rm.getHewanById(); // Need a method to fetch the Hewan object
+                                Hewan hewan = rm.getHewanById();
                                 String namaHewan = hewan != null ? hewan.getNama() : "Tidak Diketahui";
                                 String spesiesHewan = hewan != null ? hewan.getSpesies() : "Tidak Diketahui";
-                                int usiaHewan = hewan.getUsiaBulan();
+                                int usiaHewan = hewan != null ? hewan.getUsiaBulan() : 0;
                                 
                                 Dokter dokter = rm.getDokterById();
                                 String namaDokter = dokter != null ? dokter.getNama() : "Tidak Diketahui";
