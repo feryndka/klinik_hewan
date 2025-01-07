@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.logging.Logger;
+import java.util.logging.Level;
 
 /**
  *
@@ -14,6 +16,8 @@ import java.util.ArrayList;
  * @param <E>
  */
 public abstract class Model<E> {
+    private static final Logger logger = Logger.getLogger(Model.class.getName());
+    
     private String db_name, user, password;
     private Connection con;
     private Statement stmt;
@@ -67,8 +71,10 @@ public abstract class Model<E> {
             int result = stmt.executeUpdate("INSERT INTO " + table + "(" + cols.substring(0, cols.length() - 2) + ")"
                                             + " VALUES ('" + values.substring(0, values.length() - 4) + "')");
             message = "info insert: " + result + " rows affected";
+            logger.info(message);
         } catch (IllegalAccessException | IllegalArgumentException | SecurityException | SQLException e) {
             message = e.getMessage();
+            logger.log(Level.SEVERE, "Error inserting data: {0}", e.getMessage());
         } finally {
             disconnect();
         }

@@ -17,7 +17,7 @@
             <li>
                 <a class="dropdown-item disabled text-center" aria-disabled="true">
                     -- 
-                    ${user}
+                    ${username}
                     --
                 </a>
             </li>

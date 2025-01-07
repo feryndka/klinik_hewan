@@ -37,8 +37,11 @@ public class AuthController extends HttpServlet {
                 // Check if user is found
                 if (user != null) {
                     HttpSession session = request.getSession();
-                    session.setAttribute("user", user.getUsername());
+                    session.setAttribute("user", user);
+                    session.setAttribute("username", user.getUsername());
                     session.setAttribute("role", user.getRole());
+                    session.setAttribute("pelanggan", user.getPelanggan());
+                    session.setAttribute("dokter", user.getDokter());
                     
                     if (null == user.getRole()) { // Redirect based on user role
                         response.sendRedirect(request.getContextPath() + "/index.jsp?error=3"); // Unknown role

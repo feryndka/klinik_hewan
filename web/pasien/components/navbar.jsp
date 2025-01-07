@@ -6,7 +6,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark d-flex justify-content-between px-5">
     <div class="d-flex flex-block align-items-center">
         <a class="navbar-brand" href="user?menu=view_pasien">Klinik Hewan</a>
-        <a class="nav-link disabled badge text-bg-light" aria-disabled="true">${user}</a>
+        <a class="nav-link disabled badge text-bg-light" aria-disabled="true">${username}</a>
     </div>
 
     <div class="d-flex flex-block align-items-center">

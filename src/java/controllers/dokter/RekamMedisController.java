@@ -3,12 +3,15 @@ package controllers.dokter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.logging.Level;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.logging.Logger;
+import java.util.logging.Level;
 import models.Dokter;
 import models.Hewan;
 import models.Pelanggan;
@@ -18,6 +21,8 @@ import models.User;
 
 @WebServlet(name = "RekamMedisController", urlPatterns = {"/rekam_medis"})
 public class RekamMedisController extends HttpServlet {
+    
+    private static final Logger logger = Logger.getLogger(RekamMedisController.class.getName());
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -83,38 +88,53 @@ public class RekamMedisController extends HttpServlet {
         RekamMedis rekamMedisModel = new RekamMedis();
 
         if ("add".equals(action)) {
-            // Data dari input pengguna
-            String namaHewan = request.getParameter("nama");
-            String spesies = request.getParameter("spesies");
-            int usia = Integer.parseInt(request.getParameter("usia"));
-            int klinikId = Integer.parseInt(request.getParameter("klinik"));
-            
-            // Data pelanggan yang login
-            User user = (User) session.getAttribute("user");
-            Pelanggan pelanggan = user.getPelanggan();
+            try {
+                // Data dari input pengguna
+                String namaHewan = request.getParameter("nama");
+                String spesies = request.getParameter("spesies");
+                String usiaStr = request.getParameter("usia");
+                int klinikId = Integer.parseInt(request.getParameter("klinik"));
+                
+                int usia;
+                
+                usia = Integer.parseInt(usiaStr);
 
-            // Membuat model Hewan
-            Hewan hewan = new Hewan();
-            hewan.setNama(namaHewan);
-            hewan.setSpesies(spesies);
-            hewan.setUsiaBulan(usia);
-            
-            // Membuat model Klinik
-            Klinik klinik = new Klinik();
-            klinik.setIdKlinik(klinikId);
-            
-            // Set nilai-nilai Rekam Medis
-            rekamMedisModel.setHewan(hewan);
-            rekamMedisModel.setKlinik(klinik);
-            rekamMedisModel.setPelanggan(pelanggan); // Pemilik diambil dari pelanggan login
-            rekamMedisModel.setDiagnosa(null);       // Diagnosa belum diisi
-            rekamMedisModel.setPerawatan(null);      // Perawatan belum diisi
-            rekamMedisModel.setDokter(null);         // Dokter belum diisi
+                // Data pelanggan yang login
+                //User user = (User) session.getAttribute("user");
+                Pelanggan pelanggan = (Pelanggan) session.getAttribute("pelanggan");
+                int idPelanggan = pelanggan.getIdPelanggan();
 
-            // Insert into database
-            rekamMedisModel.insert();
+                // Membuat model Hewan
+                Hewan hewan = new Hewan();
+                hewan.setNama(namaHewan);
+                hewan.setSpesies(spesies);
+                hewan.setUsiaBulan(usia);
+                hewan.setPemilikId(pelanggan != null ? idPelanggan : 0);
+                
+                hewan.insert();
+                logger.info("Insert Hewan successfully.");
+                
+                rekamMedisModel.setHewan(1);    
 
-            response.sendRedirect("rekam_medis?menu=view_konsultasi_pelanggan"); // Redirect after processing
+                // Membuat model Klinik
+                Klinik klinik = new Klinik();
+                klinik.setIdKlinik(klinikId);
+
+                // Set nilai-nilai Rekam Medis
+                rekamMedisModel.setKlinik(klinik.getIdKlinik());
+                rekamMedisModel.setPelanggan(idPelanggan); // Pemilik diambil dari pelanggan login
+                rekamMedisModel.setDiagnosa(null);       // Diagnosa belum diisi
+                rekamMedisModel.setPerawatan(null);      // Perawatan belum diisi
+                rekamMedisModel.setDokter(null);         // Dokter belum diisi
+
+                // Insert into database
+                rekamMedisModel.insert();
+                logger.info("Insert Rekam Medis successfully.");
+
+                response.sendRedirect("rekam_medis?menu=view_konsultasi_pelanggan"); // Redirect after processing
+            } catch (IOException | NumberFormatException e){
+                logger.log(Level.SEVERE, "Error inserting Rekam Medis: {0}", e.getMessage());
+            }
             
         } else if ("delete".equals(action)) {
            int idRekam = Integer.parseInt(request.getParameter("id"));

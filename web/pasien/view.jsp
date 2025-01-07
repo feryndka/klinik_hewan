@@ -7,7 +7,7 @@
     }
     
     // Ambil nilai username dari session
-    String username = (String) userSession.getAttribute("user");
+    String username = (String) userSession.getAttribute("username");
     
     // Set username as a request attribute for EL access
     request.setAttribute("user", username);
