@@ -47,14 +47,17 @@
                                 
                                 Pelanggan pelanggan = rm.getPelangganById();
                                 String namaPelanggan = pelanggan != null ? pelanggan.getNama() : "Tidak Diketahui";
+                                
+                                String diagnosa = rm.getDiagnosa() != null ? rm.getDiagnosa() : "Belum didiagnosa";
+                                String perawatan = rm.getPerawatan() != null ? rm.getPerawatan() : "Belum dirawat";
                     %>
                     <tr>
                         <td><%= rm.getIdRekam() %></td>
                         <td><%= namaHewan %></td>
                         <td><%= spesiesHewan %></td>
                         <td><%= namaPelanggan %></td>
-                        <td><%= rm.getDiagnosa() %></td>
-                        <td><%= rm.getPerawatan() %></td>
+                        <td><%= diagnosa %></td>
+                        <td><%= perawatan %></td>
                         <td>
                             <a href="<%= request.getContextPath() %>/rekam_medis?menu=edit_konsultasi&id=<%= rm.getIdRekam() %>" class="btn btn-success btn-sm">Diagnosa</a>
                             <form method="POST" action="<%= request.getContextPath() %>/rekam_medis" style="display: inline;">
