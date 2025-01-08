@@ -6,15 +6,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class User extends Model<User> {
-    private int idUser;          // Primary Key
+    private int idUser;         // Primary Key
     private String username;
     private String password;
     private String role;
     private Integer pelanggan;  // Foreign Key to Pelanggan (nullable)
-    private Integer dokter;      // Foreign Key to Dokter (nullable)
+    private Integer dokter;     // Foreign Key to Dokter (nullable)
 
     public User() {
-        this.table = "user"; // Table name
+        this.table = "user";        // Table name
         this.primaryKey = "idUser"; // Primary key column
     }
 
@@ -28,8 +28,8 @@ public class User extends Model<User> {
 
     public User(int idUser, String username, String password, String role, Integer pelanggan, Integer dokter) {
         this(idUser, username, password, role); // Call existing constructor
-        this.pelanggan = pelanggan;  // Set foreign key as ID
-        this.dokter = dokter;        // Set foreign key as ID
+        this.pelanggan = pelanggan;             // Set foreign key as ID
+        this.dokter = dokter;                   // Set foreign key as ID
     }
 
     @Override
@@ -42,6 +42,7 @@ public class User extends Model<User> {
             } else if (rs.getString("role").equals("dokter")) {
                 dokter = rs.getInt("dokter");
             }
+            
             return new User(
                 rs.getInt("idUser"),
                 rs.getString("username"),
@@ -50,6 +51,7 @@ public class User extends Model<User> {
                 pelanggan,  // Assign foreign key ID
                 dokter      // Assign foreign key ID
             );
+            
         } catch (SQLException e) {
             System.out.println("Error: " + e.getMessage());
             return null;
@@ -58,45 +60,53 @@ public class User extends Model<User> {
 
     public ArrayList<User> getAllUserWithRelations() {
         this.join("pelanggan", "user.pelanggan = pelanggan.idPelanggan") // Changed to pelanggan
-            .join("dokter", "user.dokter = dokter.idDokter") // Changed to dokter
+            .join("dokter", "user.dokter = dokter.idDokter")             // Changed to dokter
             .where("username = '" + username + "' AND password = '" + password + "'");
         this.select("user.*, "
             + "pelanggan.idPelanggan AS idPelanggan, pelanggan.namaPelanggan AS namaPelanggan, "
             + "pelanggan.alamatPelanggan AS alamatPelanggan, pelanggan.nomor_telepon AS nomor_telepon, "
             + "dokter.idDokter AS idDokter, dokter.namaDokter AS namaDokter, dokter.spesialisasi AS spesialisasi");
+        
         return this.get();
     }
 
     // Getters and Setters
     public int getIdUser() { return idUser; }
     public void setIdUser(int idUser) { this.idUser = idUser; }
+    
     public String getUsername() { return username; }
     public void setUsername(String username) { this.username = username; }
+    
     public String getPassword() { return password; } // Consider hashing before returning
     public void setPassword(String password) { this.password = password; } // Hashing is recommended
+    
     public String getRole() { return role; }
     public void setRole(String role) { this.role = role; }
     
-    public Integer getPelangganId() { return pelanggan; }  // Getter for pelanggan
-    public void setPelangganId(Integer pelanggan) { this.pelanggan = pelanggan; } // Setter for pelanggan
+    public Integer getPelangganId() { return pelanggan; }  // Getter for id pelanggan
+    public void setPelangganId(Integer pelanggan) { this.pelanggan = pelanggan; } // Setter for id pelanggan
     
-    public Integer getDokterId() { return dokter; } // Getter for dokter
-    public void setDokterId(Integer dokter) { this.dokter = dokter; } // Setter for dokter
+    public Integer getDokterId() { return dokter; } // Getter for id dokter
+    public void setDokterId(Integer dokter) { this.dokter = dokter; } // Setter for id dokter
     
     public User find(int id) {
         try {
             connect(); // Connect to the database
             String query = "SELECT " + select + " FROM " + table + " WHERE " + primaryKey + " = " + id;
             ResultSet rs = stmt.executeQuery(query);
+            
             if (rs.next()) {
                 return toModel(rs); // Convert ResultSet to Doktermodel
             }
+            
         } catch (SQLException e) {
             setMessage(e.getMessage()); // Set any error messages from the exception
+            
         } finally {
             disconnect(); // Ensure the database connection is closed
             select = "*"; // Reset the select statement for future queries
         }
+        
         return null; // Return null if the object was not found
     }
 

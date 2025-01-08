@@ -19,17 +19,17 @@ public class UserController extends HttpServlet {
             throws ServletException, IOException {
         // Inisialisasi object HttpSession untuk melakukan request session
         HttpSession session = request.getSession();
-        // Lakukan pengecekan apakah var session untuk atribut "user" bernilai null
+        // Pengecekan apakah var session untuk atribut "user" bernilai null
         if (session == null || session.getAttribute("user") == null) {
-            // Lakukan send redirect secara langsung ke index.jsp
+            // Send redirect secara langsung ke index.jsp
             response.sendRedirect("index.jsp");
             return;
         }
 
         String menu = request.getParameter("menu");
-        // Lakukan pengecekan jika var menu bernilai null atau kosong
+        // Pengecekan jika var menu bernilai null atau kosong
         if (menu == null || menu.isEmpty()) {
-            // Lakukan send redirect ke index.jsp
+            // Send redirect ke index.jsp
             response.sendRedirect("index.jsp");
             return;
         }

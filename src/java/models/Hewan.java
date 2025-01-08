@@ -11,7 +11,7 @@ public class Hewan extends Model<Hewan> {
     private String spesies;        // Species of the animal
     private String namaHewan;      // Name of the animal
     private int usiaBulan;         // Age in months
-    private int pemilik;         // Store only the ID of Pelanggan (owner)
+    private int pemilik;           // Store only the ID of Pelanggan (owner)
 
     public Hewan() {
         this.table = "hewan";      // Table name
@@ -35,7 +35,7 @@ public class Hewan extends Model<Hewan> {
                 rs.getString("spesies"),
                 rs.getString("namaHewan"),
                 rs.getInt("usiaBulan"),     // Match with SQL column name
-                rs.getInt("pemilik")         // Get owner ID directly from ResultSet
+                rs.getInt("pemilik")        // Get owner ID directly from ResultSet
             );
         } catch (SQLException e) {
             System.out.println("Error: " + e.getMessage());
@@ -82,34 +82,39 @@ public class Hewan extends Model<Hewan> {
         this.select("hewan.*, "
             + "pelanggan.idPelanggan AS idPelanggan, pelanggan.namaPelanggan AS namaPelanggan, "
             + "pelanggan.alamatPelanggan AS alamatPelanggan, pelanggan.nomor_telepon AS nomor_telepon");
+        
         return this.get();
     }
 
     // Getters and setters for all fields including IDs.
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
+    
     public String getSpesies() { return spesies; }
     public void setSpesies(String spesies) { this.spesies = spesies; }
+    
     public String getNama() { return namaHewan; }
     public void setNama(String nama) { this.namaHewan = nama; }
+    
     public int getUsiaBulan() { return usiaBulan; }
     public void setUsiaBulan(int usiaBulan) { this.usiaBulan = usiaBulan; }
 
     public int getPemilikId() { return pemilik; } 
-    public void setPemilikId(int pemilik) { 
-        this.pemilik = pemilik; 
-    } 
+    public void setPemilikId(int pemilik) { this.pemilik = pemilik; } 
  
     public Hewan find(int id) {
         try {
             connect(); // Connect to the database
             String query = "SELECT " + select + " FROM " + table + " WHERE " + primaryKey + " = " + id;
             ResultSet rs = stmt.executeQuery(query);
+            
             if (rs.next()) {
                 return toModel(rs); // Convert ResultSet to Doktermodel
             }
+            
         } catch (SQLException e) {
             setMessage(e.getMessage()); // Set any error messages from the exception
+            
         } finally {
             disconnect(); // Ensure the database connection is closed
             select = "*"; // Reset the select statement for future queries

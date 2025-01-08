@@ -8,7 +8,7 @@ public class Dokter extends Model<Dokter> {
     private int idDokter;           // Primary Key
     private String namaDokter;      // Name of the doctor
     private String spesialisasi;    // Specialization of the doctor
-    private Integer klinik;       // Foreign Key to Klinik (nullable)
+    private Integer klinik;         // Foreign Key to Klinik (nullable)
 
     public Dokter() {
         this.table = "dokter";          // Table name
@@ -27,7 +27,7 @@ public class Dokter extends Model<Dokter> {
     public Dokter toModel(ResultSet rs) {
         try {
             return new Dokter(
-                rs.getInt("idDokter"),         // Match with SQL column name
+                rs.getInt("idDokter"),                // Match with SQL column name
                 rs.getString("namaDokter"),
                 rs.getString("spesialisasi"),
                 rs.getObject("klinik", Integer.class) // Fetch klinik as Integer
@@ -49,10 +49,13 @@ public class Dokter extends Model<Dokter> {
     // Getters and setters
     public int getIdDokter() { return idDokter; }
     public void setIdDokter(int idDokter) { this.idDokter = idDokter; }
+    
     public String getNama() { return namaDokter; }
     public void setNama(String nama) { this.namaDokter = nama; }
+    
     public String getSpesialisasi() { return spesialisasi; }
     public void setSpesialisasi(String spesialisasi) { this.spesialisasi = spesialisasi; }
+    
     public Integer getKlinikId() { return klinik; } // Getter for klinik
     public void setKlinikId(Integer klinik) { this.klinik = klinik; } // Setter for klinik
 

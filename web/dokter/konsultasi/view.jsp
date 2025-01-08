@@ -56,7 +56,7 @@
                         <td><%= rm.getDiagnosa() %></td>
                         <td><%= rm.getPerawatan() %></td>
                         <td>
-                            <a href="<%= request.getContextPath() %>/rekam_medis?menu=edit&id=<%= rm.getIdRekam() %>" class="btn btn-success btn-sm">Diagnosa</a>
+                            <a href="<%= request.getContextPath() %>/rekam_medis?menu=edit_konsultasi&id=<%= rm.getIdRekam() %>" class="btn btn-success btn-sm">Diagnosa</a>
                             <form method="POST" action="<%= request.getContextPath() %>/rekam_medis" style="display: inline;">
                                 <input type="hidden" name="action" value="delete" />
                                 <input type="hidden" name="id" value="<%= rm.getIdRekam() %>" />

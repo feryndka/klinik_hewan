@@ -1,41 +1,33 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="models.Klinik"%>
 <%@page import="models.Dokter"%>
-<%@page import="models.Hewan"%>
+<%@page import="models.Pelanggan"%>
+<%@page import="models.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
-    /**
     HttpSession userSession = request.getSession();
-    Pelanggan pelanggan = (Pelanggan) userSession.getAttribute("pelanggan");
-    if (pelanggan == null) {
-        out.println("Pelanggan is null.");
-    } else {
-        out.println("Pelanggan retrieved: " + pelanggan.getNama()); // or whatever method you have
-    }
-    
-    String uyername = (String) userSession.getAttribute("username");
-    if (uyername == null) {
-        out.println("Username is null.");
-    } else {
-        out.println("Uyername retrieved: " + uyername); // or whatever method you have
-    }
-        
     User user = (User) userSession.getAttribute("user");
+    Pelanggan pelanggan = user.getPelangganById();
+    
+    ArrayList<Klinik> klinikList = new Klinik().get();
+    ArrayList<Dokter> dokterList = new Dokter().get();
+    
+    /*
     if (user == null) {
         out.println("User is null.");
     } else {
-        out.println("User retrieved: " + user.getUsername()); // or whatever method you have
+        out.println("Username: " + user.getUsername()); // get username user
+        out.println(", Role: " + user.getRole()); // get username user
     }
     
-    Pelanggan pelanggan2 = user.getPelangganById();
-    
-    if (pelanggan2 == null) {
+    if (pelanggan == null) {
         out.println("Pelanggan is null.");
     } else {
-        out.println("Pelanggan retrieved: " + pelanggan2.getNama()); // or whatever method you have
-    }*/
-        
-    ArrayList<Klinik> klinikList = new Klinik().get();
+        out.println(", Nama: " + pelanggan.getNama()); // get nama pelanggan
+        out.println(", Alamat: " + pelanggan.getAlamat()); // get nama pelanggan
+        out.println(", No Telepon: " + pelanggan.getNomorTelepon()); // get nama pelanggan
+    }
+    */
 %>
 <!DOCTYPE html>
 <html lang="id">
@@ -48,7 +40,7 @@
         <div class="card shadow d-flex col-8 mx-auto">
             <div class="card-header bg-dark text-white text-center">
                 <h2>Buat Janji Konsultasi</h2>
-                <h3> ${username} </h3>
+                <h3>- <%= pelanggan.getNama() %> -</h3>
             </div>
             <div class="card-body">
                 <form method="POST" action="rekam_medis">
@@ -70,6 +62,14 @@
                         <% for (Klinik klinik : klinikList) { %>
                             <option value="<%= klinik.getIdKlinik() %>">
                                 <%= klinik.getNama() %> (<%= klinik.getJamOperasional() %>)
+                            </option>
+                        <% } %>
+                    </select>
+                    <select name="dokter" class="form-select mb-3" required>
+                        <option value="" disabled selected>-- Pilih Dokter Hewan --</option>
+                        <% for (Dokter dokter : dokterList) { %>
+                            <option value="<%= dokter.getIdDokter() %>">
+                                <%= dokter.getNama() %>
                             </option>
                         <% } %>
                     </select>
