@@ -4,13 +4,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Klinik extends Model<Klinik> {
-    private int idKlinik;          // Change from 'id' to 'idKlinik' for clarity
+    private int idKlinik;           // Change from 'id' to 'idKlinik' for clarity
     private String namaKlinik;
     private String alamatKlinik;
     private String jamOperasional;  // Added field for operational hours
 
     public Klinik() {
-        this.table = "klinik";      // Table name
+        this.table = "klinik";        // Table name
         this.primaryKey = "idKlinik"; // Primary key column name
     }
 
@@ -26,7 +26,7 @@ public class Klinik extends Model<Klinik> {
     public Klinik toModel(ResultSet rs) {
         try {
             return new Klinik(
-                rs.getInt("idKlinik"),      // Match with SQL column name
+                rs.getInt("idKlinik"),          // Match with SQL column name
                 rs.getString("namaKlinik"),
                 rs.getString("alamatKlinik"),
                 rs.getString("jamOperasional")  // Ensure correct column name is used
@@ -49,4 +49,24 @@ public class Klinik extends Model<Klinik> {
 
     public String getJamOperasional() { return jamOperasional; }
     public void setJamOperasional(String jamOperasional) { this.jamOperasional = jamOperasional; }
+    
+    public Klinik find(int id) {
+        try {
+            connect(); // Connect to the database
+            String query = "SELECT " + select + " FROM " + table + " WHERE " + primaryKey + " = " + id;
+            ResultSet rs = stmt.executeQuery(query);
+            
+            if (rs.next()) {
+                return toModel(rs); // Convert ResultSet to Klinik model
+            }
+            
+        } catch (SQLException e) {
+            setMessage(e.getMessage()); // Set any error messages from the exception
+        } finally {
+            disconnect(); // Ensure the database connection is closed
+            select = "*"; // Reset the select statement for future queries
+        }
+        
+        return null; // Return null if the object was not found
+    }
 }

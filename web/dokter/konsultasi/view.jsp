@@ -1,3 +1,5 @@
+<%@page import="models.Pelanggan"%>
+<%@page import="models.Hewan"%>
 <%@page import="models.RekamMedis"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -39,9 +41,12 @@
                     <%
                         if (rekamMedisList != null && !rekamMedisList.isEmpty()) {
                             for (RekamMedis rm : rekamMedisList) {
-                                String namaHewan = rm.getHewan() != null ? rm.getHewan().getNama() : "Tidak Diketahui";
-                                String spesiesHewan = rm.getHewan() != null ? rm.getHewan().getSpesies() : "Tidak Diketahui";
-                                String namaPelanggan = rm.getPelanggan() != null ? rm.getPelanggan().getNama() : "Tidak Diketahui";
+                                Hewan hewan = rm.getHewanById();                                
+                                String namaHewan = hewan != null ? hewan.getNama() : "Tidak Diketahui";
+                                String spesiesHewan = hewan != null ? hewan.getSpesies() : "Tidak Diketahui";
+                                
+                                Pelanggan pelanggan = rm.getPelangganById();
+                                String namaPelanggan = pelanggan != null ? pelanggan.getNama() : "Tidak Diketahui";
                     %>
                     <tr>
                         <td><%= rm.getIdRekam() %></td>
@@ -51,7 +56,7 @@
                         <td><%= rm.getDiagnosa() %></td>
                         <td><%= rm.getPerawatan() %></td>
                         <td>
-                            <a href="<%= request.getContextPath() %>/rekam_medis?menu=edit&id=<%= rm.getIdRekam() %>" class="btn btn-success btn-sm">Diagnosa</a>
+                            <a href="<%= request.getContextPath() %>/rekam_medis?menu=edit_konsultasi&id=<%= rm.getIdRekam() %>" class="btn btn-success btn-sm">Diagnosa</a>
                             <form method="POST" action="<%= request.getContextPath() %>/rekam_medis" style="display: inline;">
                                 <input type="hidden" name="action" value="delete" />
                                 <input type="hidden" name="id" value="<%= rm.getIdRekam() %>" />

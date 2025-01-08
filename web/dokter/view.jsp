@@ -6,12 +6,6 @@
         response.sendRedirect("../index.jsp");
         return;
     }
-    
-    // Ambil nilai username dari session
-    String username = (String) userSession.getAttribute("user");
-    
-    // Set username as a request attribute for EL access
-    request.setAttribute("user", username);
 %>
 <!DOCTYPE html>
 <html>
