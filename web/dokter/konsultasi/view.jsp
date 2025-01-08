@@ -1,3 +1,5 @@
+<%@page import="models.Pelanggan"%>
+<%@page import="models.Hewan"%>
 <%@page import="models.RekamMedis"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -39,9 +41,12 @@
                     <%
                         if (rekamMedisList != null && !rekamMedisList.isEmpty()) {
                             for (RekamMedis rm : rekamMedisList) {
-                                String namaHewan = rm.getHewan() != null ? rm.getHewan().getNama() : "Tidak Diketahui";
-                                String spesiesHewan = rm.getHewan() != null ? rm.getHewan().getSpesies() : "Tidak Diketahui";
-                                String namaPelanggan = rm.getPelanggan() != null ? rm.getPelanggan().getNama() : "Tidak Diketahui";
+                                Hewan hewan = rm.getHewanById();                                
+                                String namaHewan = hewan != null ? hewan.getNama() : "Tidak Diketahui";
+                                String spesiesHewan = hewan != null ? hewan.getSpesies() : "Tidak Diketahui";
+                                
+                                Pelanggan pelanggan = rm.getPelangganById();
+                                String namaPelanggan = pelanggan != null ? pelanggan.getNama() : "Tidak Diketahui";
                     %>
                     <tr>
                         <td><%= rm.getIdRekam() %></td>

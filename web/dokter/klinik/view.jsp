@@ -6,9 +6,7 @@
     if (userSession == null || userSession.getAttribute("user") == null) {
         response.sendRedirect("../../index.jsp");
         return;
-    }
-    // Get username from session
-    String username = (String) userSession.getAttribute("user");
+    }   
     ArrayList<Klinik> klinik = (ArrayList<Klinik>) request.getAttribute("klinik");
 %>
 <!DOCTYPE html>

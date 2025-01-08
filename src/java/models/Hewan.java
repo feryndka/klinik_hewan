@@ -116,4 +116,9 @@ public class Hewan extends Model<Hewan> {
         }
         return null; // Return null if the object was not found
     }
+    
+    public Pelanggan getPelangganById() {
+        Pelanggan pelanggan = new Pelanggan();
+        return pelanggan.find(this.pemilik); // Assuming find() is a method in Hewan class to fetch a Hewan by ID.
+    }
 }

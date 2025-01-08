@@ -121,4 +121,9 @@ public class RekamMedis extends Model<RekamMedis> {
         Klinik klinik = new Klinik();
         return klinik.find(this.klinik); // Assuming find() is a method in Hewan class to fetch a Hewan by ID.
     }
+    
+    public Pelanggan getPelangganById() {
+        Pelanggan pelanggan = new Pelanggan();
+        return pelanggan.find(this.pemilik); // Assuming find() is a method in Hewan class to fetch a Hewan by ID.
+    }
 }
