@@ -51,6 +51,9 @@
                                 String spesiesHewan = hewan != null ? hewan.getSpesies() : "Tidak Diketahui";
                                 int usiaHewan = hewan != null ? hewan.getUsiaBulan() : 0;
                                 
+                                String diagnosa = rm.getDiagnosa() != null ? rm.getDiagnosa() : "Belum didiagnosa";
+                                String perawatan = rm.getPerawatan() != null ? rm.getPerawatan() : "Belum dirawat";
+                                
                                 Dokter dokter = rm.getDokterById();
                                 String namaDokter = dokter != null ? dokter.getNama() : "Tidak Diketahui";
                                 
@@ -62,8 +65,8 @@
                         <td><%= namaHewan %></td>
                         <td><%= spesiesHewan %></td>
                         <td><%= usiaHewan %></td>
-                        <td><%= rm.getDiagnosa() %></td>
-                        <td><%= rm.getPerawatan() %></td>
+                        <td><%= diagnosa %></td>
+                        <td><%= perawatan %></td>
                         <td><%= namaDokter %></td>
                         <td><%= namaKlinik %></td>
                     </tr>

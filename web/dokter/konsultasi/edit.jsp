@@ -7,7 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <%
+    <%               
         RekamMedis rekamMedis = (RekamMedis) request.getAttribute("rekamMedis");
         if (rekamMedis == null) {
     %>
@@ -19,6 +19,11 @@
         </div>
     <%
         } else {
+
+        /** out.println("ID Rekam : " + rekamMedis.getIdRekam());
+        out.println("ID Pelanggan : " + rekamMedis.getPelangganById().getIdPelanggan());
+        out.println("ID Hewan : " + rekamMedis.getHewanById().getId());
+        out.println("ID Dokter : " + rekamMedis.getDokterById().getIdDokter()); */
     %>
     <div class="container my-5">
         <div class="card shadow-lg border-0">
@@ -63,7 +68,7 @@
                     <div class="row mb-4">
                         <div class="col-sm-2 fw-bold d-flex justify-content-between"><span>Klinik</span> :</div>
                         <div class="col-sm-8"><%= rekamMedis.getKlinikById().getNama() %></div>
-                        <input type="hidden" name="idHewan" value="<%= rekamMedis.getKlinikById().getIdKlinik() %>">
+                        <input type="hidden" name="idKlinik" value="<%= rekamMedis.getKlinikById().getIdKlinik() %>">
                     </div>
 
                     <!-- Diagnosa Hewan -->

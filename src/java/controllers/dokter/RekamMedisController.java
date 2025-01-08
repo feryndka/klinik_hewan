@@ -150,16 +150,40 @@ public class RekamMedisController extends HttpServlet {
             
         } else if ("edit".equals(action)) {
             try {
-                // Ambil data dari input
-                int idRekam = Integer.parseInt(request.getParameter("id"));
-                int idHewan = Integer.parseInt(request.getParameter("idHewan"));
-                int idPelanggan = Integer.parseInt(request.getParameter("idPelanggan"));
-                int idDokter = Integer.parseInt(request.getParameter("idDokter"));
-                int idKlinik = Integer.parseInt(request.getParameter("idKlinik"));
+                // Retrieve parameters from input
+                String idRekamParam = request.getParameter("id");
+                String idHewanParam = request.getParameter("idHewan");
+                String idPelangganParam = request.getParameter("idPelanggan");
+                String idDokterParam = request.getParameter("idDokter");
+                String idKlinikParam = request.getParameter("idKlinik");
                 String diagnosa = request.getParameter("diagnosa");
                 String perawatan = request.getParameter("perawatan");
 
-                // Set nilai pada model
+                // Log each parameter value
+                System.out.println("Editing Rekam Medis");
+                System.out.println("ID Rekam: " + idRekamParam);
+                System.out.println("ID Hewan: " + idHewanParam);
+                System.out.println("ID Pelanggan: " + idPelangganParam);
+                System.out.println("ID Dokter: " + idDokterParam);
+                System.out.println("ID Klinik: " + idKlinikParam);
+                System.out.println("Diagnosa: " + diagnosa);
+                System.out.println("Perawatan: " + perawatan);
+
+                // Check and parse parameters, handle potential null values
+                if (idRekamParam == null || idHewanParam == null || idPelangganParam == null ||
+                    idDokterParam == null || idKlinikParam == null || diagnosa == null || perawatan == null ) {
+                    System.out.println("One or more parameters are null.");
+                    response.sendRedirect("rekam_medis?menu=view_konsultasi&error=parameter_null");
+                    return;
+                }
+
+                int idRekam = Integer.parseInt(idRekamParam);
+                int idHewan = Integer.parseInt(idHewanParam);
+                int idPelanggan = Integer.parseInt(idPelangganParam);
+                int idDokter = Integer.parseInt(idDokterParam);
+                int idKlinik = Integer.parseInt(idKlinikParam);
+
+                // Set values on the model
                 rekamMedisModel.setIdRekam(idRekam);
                 rekamMedisModel.setHewan(idHewan);
                 rekamMedisModel.setPelanggan(idPelanggan);
@@ -168,13 +192,17 @@ public class RekamMedisController extends HttpServlet {
                 rekamMedisModel.setDiagnosa(diagnosa);
                 rekamMedisModel.setPerawatan(perawatan);
 
-                // Update database
+                // Update the database
                 rekamMedisModel.update();
-
+                System.out.println("Successfully updated Rekam Medis with " + diagnosa + " and perawatan as " + perawatan);
                 response.sendRedirect("rekam_medis?menu=view_konsultasi");
-                
+            } catch (NumberFormatException e) {
+                logger.log(Level.SEVERE, "Error updating Rekam Medis: {0}", e.getMessage());
+                System.out.println("Error updating Rekam Medis: Invalid number format. " + e.getMessage());
+                response.sendRedirect("rekam_medis?menu=view_konsultasi&error=invalid_number_format");
             } catch (Exception e) {
                 logger.log(Level.SEVERE, "Error updating Rekam Medis: {0}", e.getMessage());
+                System.out.println("Error updating Rekam Medis: " + e.getMessage());
                 response.sendRedirect("rekam_medis?menu=view_konsultasi");
             }
 

@@ -98,8 +98,10 @@ public abstract class Model<E> {
             int result = stmt.executeUpdate("UPDATE " + table + " SET " + values.substring(0, values.length() - 2)
                                             + " WHERE " + primaryKey + " = '" + pkValue +"'");
             message = "info update: " + result + " rows affected";
+            System.out.println(message);
         } catch (IllegalAccessException | IllegalArgumentException | SecurityException | SQLException e) {
             message = e.getMessage();
+            System.out.println(message);
         } finally {
             disconnect();
         }
