@@ -70,6 +70,11 @@
                         <div class="col-sm-8"><%= rekamMedis.getKlinikById().getNama() %></div>
                         <input type="hidden" name="idKlinik" value="<%= rekamMedis.getKlinikById().getIdKlinik() %>">
                     </div>
+                    
+                    <%                                                      
+                        String diagnosa = rekamMedis.getDiagnosa() != null ? rekamMedis.getDiagnosa() : "Belum didiagnosa";
+                        String perawatan = rekamMedis.getPerawatan() != null ? rekamMedis.getPerawatan() : "Belum dirawat";
+                    %>
 
                     <!-- Diagnosa Hewan -->
                     <div class="form-floating mb-3">
@@ -78,7 +83,7 @@
                             class="form-control" 
                             id="diagnosa" 
                             name="diagnosa" 
-                            value="<%= rekamMedis.getDiagnosa() %>" 
+                            value="<%= diagnosa %>" 
                             placeholder="Masukkan Diagnosa Hewan"
                             required>
                         <label for="diagnosa">Diagnosa Penyakit</label>
@@ -91,7 +96,7 @@
                             class="form-control" 
                             id="perawatan" 
                             name="perawatan" 
-                            value="<%= rekamMedis.getPerawatan() %>" 
+                            value="<%= perawatan %>" 
                             placeholder="Masukkan Perawatan Hewan"
                             required>
                         <label for="perawatan">Perawatan Hewan</label>

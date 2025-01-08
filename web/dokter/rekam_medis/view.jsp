@@ -54,14 +54,17 @@
                                 
                                 Klinik klinik = rm.getKlinikById();
                                 String namaKlinik = klinik != null ? klinik.getNama() : "Tidak Diketahui";
+                                
+                                String diagnosa = rm.getDiagnosa() != null ? rm.getDiagnosa() : "Belum didiagnosa";
+                                String perawatan = rm.getPerawatan() != null ? rm.getPerawatan() : "Belum dirawat";
                     %>
                     <tr>
                         <td><%= rm.getIdRekam() %></td>
                         <td><%= namaPemilik %></td>
                         <td><%= namaHewan %></td>
                         <td><%= spesiesHewan %></td>
-                        <td><%= rm.getDiagnosa() %></td>
-                        <td><%= rm.getPerawatan() %></td>
+                        <td><%= diagnosa %></td>
+                        <td><%= perawatan %></td>
                         <td><%= namaDokter %></td>
                         <td><%= namaKlinik %></td>
                     </tr>
